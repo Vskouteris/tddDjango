@@ -1,0 +1,13 @@
+create project folder
+cd to the folder
+run in comand line: virtualenv (name of the venv)
+pip install all packages needed
+		In Django cases
+create django project: django-admin startproject mysite
+
+		For Selenium
+1)pip install selenium
+2)donloaad geckodriver from github and extract geckodriver.exe to site-packages
+3)browser = webdriver.Firefox(executable_path=r'C:\Users\user\Documents\Python Scripts\TDD\tddenv\Lib\site-packages\geckodriver.exe')
+
+ 

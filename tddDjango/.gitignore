@@ -1,0 +1,4 @@
+# created by virtualenv automatically
+db.sqlite3
+tddDjango/__pycache__/
+*.pyc
