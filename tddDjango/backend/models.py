@@ -10,6 +10,9 @@ class Offer(models.Model):
     extra_price = models.FloatField(default=0)
 
     def __str__(self):
+        # allParameters = self.parameter_set.all()
+        # text = str([parameter+"-" for parameter in allParameters])
+        # print(text)
         return self.customer_name+" asked for "+str(self.number)+" pieces"
 
     @property
@@ -19,17 +22,16 @@ class Offer(models.Model):
         return total
 
 class Parameter(models.Model):
-    offer = models.ForeignKey(Offer,on_delete=models.CASCADE)
+    offer = models.ManyToManyField(Offer)
     name = models.CharField(max_length=100,null=True)
     # price = models.FloatField(null=True)  #mallon de to xreiazomai ayto
     description = models.CharField(max_length=300,null=True)
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
       
     def __str__(self):
-        # allDetails = self.detail_set.all()
-        # text = str([detail+"-" for detail in allDetails])
-        # print(text)
-        return self.name+" ("+str(self.offer.id)+"-"+str(self.offer)+") "
+        allDetails = self.detail_set.all()
+        text = str([str(detail)+"-" for detail in allDetails])
+        return self.name+" ("+str(self.description)+"-"+text+") "
     
     @property
     def get_parameter_total(self):
@@ -38,7 +40,7 @@ class Parameter(models.Model):
         return total
 
 class Detail(models.Model):
-    parameter = models.ForeignKey(Parameter,on_delete=models.CASCADE)
+    parameter = models.ManyToManyField(Parameter)
     name = models.CharField(max_length=100,null=True)   #name of the detail of the parameter e.g: dimensions,ontoule
     #category might be a string or a dict we'll see or a property finally
     category = models.CharField(max_length=100,null=True,unique=True)  #unique categories for this detail e.g: for dimensions 30x60 or 50x70,for ontoule 2f k-k or 3f x4   

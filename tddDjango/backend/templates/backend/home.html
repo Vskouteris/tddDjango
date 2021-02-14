@@ -15,7 +15,33 @@
 		<!--[if lt IE 7]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
-		Home Page
-		<script src="" async defer></script>
+		{% extends 'backend/main.html' %}
+		{% load static %}
+		{% block content %}
+			<div class="row">
+				{% for offer in offers %}
+				<div class="col-lg-4">
+					<!-- <img class="thumbnail" src="{{product.imageURL}}"> -->
+					<div class="box-element product">
+						<h3><strong>{{offer}}</strong></h3>
+						<hr>
+						{% for parameter in offer.parameter_set.all %}
+							<h5>{{parameter}}</h5>
+							{% for detail in parameter.detail_set.all %}
+								<h6 style="red">{{detail}}</h6>
+							{% endfor %}
+						{% endfor %}
+						<!-- <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button> -->
+						
+						<!-- <a class="btn btn-outline-success" href="#">View</a> -->
+						<!-- <h4 style="display: inline-block; float: right"><strong>€{{product.price}}</strong></h4> -->
+						
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+		{% endblock content %}
+				<script src="" async defer></script>
 	</body>
 </html>
