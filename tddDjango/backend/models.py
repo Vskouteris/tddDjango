@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Offer(models.Model):
-    customer_name = models.CharField(max_length=100,null=True)
+    customer_name = models.CharField(max_length=100,null=True,help_text="What is the name of the client?")
     description = models.CharField(max_length=500,null=True,help_text="put a description for this offer")
-    number = models.IntegerField(null=True)
-    extra_price = models.FloatField()
+    number = models.IntegerField(null=True,help_text="How many pieces does the customer want")     #number of temaxia
+    extra_price = models.FloatField(default=0)
 
     def __str__(self):
-        return self.name
+        return self.customer_name+" asked for "+str(self.number)+" pieces"
 
     @property
     def get_offer_total_price(self):
@@ -23,10 +23,13 @@ class Parameter(models.Model):
     name = models.CharField(max_length=100,null=True)
     # price = models.FloatField(null=True)  #mallon de to xreiazomai ayto
     description = models.CharField(max_length=300,null=True)
-    extra_price = models.FloatField()   #one field for the user to add to the price manually
+    extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
       
     def __str__(self):
-        return self.name
+        # allDetails = self.detail_set.all()
+        # text = str([detail+"-" for detail in allDetails])
+        # print(text)
+        return self.name+" ("+str(self.offer.id)+"-"+str(self.offer)+") "
     
     @property
     def get_parameter_total(self):
@@ -40,7 +43,7 @@ class Detail(models.Model):
     #category might be a string or a dict we'll see or a property finally
     category = models.CharField(max_length=100,null=True,unique=True)  #unique categories for this detail e.g: for dimensions 30x60 or 50x70,for ontoule 2f k-k or 3f x4   
     price = models.FloatField()
-    extra_price = models.FloatField()   #one field for the user to add to the price manually
+    extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
 
     def __str__(self):
         return self.name+"-"+self.category
