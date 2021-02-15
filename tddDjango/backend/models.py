@@ -18,7 +18,7 @@ class Offer(models.Model):
     @property
     def get_all_parameters_in_offer(self):
         allParameters = self.parameter_set.all()
-        return allParameters
+        return allParameters[::1]
     
     @property
     def get_offer_total_price(self):
@@ -41,7 +41,7 @@ class Parameter(models.Model):
     @property
     def get_all_details_in_offer(self):
         alldetails = self.detail_set.all()
-        return alldetails
+        return alldetails[::1]
     
     @property
     def get_parameter_total(self):

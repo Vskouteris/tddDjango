@@ -15,6 +15,7 @@ def home_page(request):
 @api_view(['GET'])
 def get_offers(request):
     data = Offer.objects.all()
+    print(data[::1])
     serializer = OfferSerializer(data, many=True)
     return Response(serializer.data)
 
