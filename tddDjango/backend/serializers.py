@@ -13,8 +13,8 @@ class ParameterSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class OfferSerializer(serializers.ModelSerializer):
-    Parameter = ParameterSerializer(read_only=True, many=True)
+    # groups = serializers.PrimaryKeyRelatedField(many=True)
+    parameters = serializers.CharField(source='get_all_parameters_in_offer', read_only=True)
     class Meta:
         model = Offer
         fields = '__all__'
-

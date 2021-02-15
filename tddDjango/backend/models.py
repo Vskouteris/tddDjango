@@ -16,6 +16,11 @@ class Offer(models.Model):
         return self.customer_name+" asked for "+str(self.number)+" pieces"
 
     @property
+    def get_all_parameters_in_offer(self):
+        allParameters = self.parameter_set.all()
+        return allParameters
+    
+    @property
     def get_offer_total_price(self):
         allParameters = self.parameter_set.all()
         total = self.extra_price + sum ([par.get_parameter_total for par in allParameters])
@@ -32,6 +37,11 @@ class Parameter(models.Model):
         allDetails = self.detail_set.all()
         text = str([str(detail)+"-" for detail in allDetails])
         return self.name+" ("+str(self.description)+"-"+text+") "
+    
+    @property
+    def get_all_details_in_offer(self):
+        alldetails = self.detail_set.all()
+        return alldetails
     
     @property
     def get_parameter_total(self):

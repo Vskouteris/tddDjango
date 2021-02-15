@@ -13,8 +13,19 @@ def home_page(request):
     return render(request, 'backend/home.html',context)
 
 @api_view(['GET'])
-def testDatabase(request):
+def get_offers(request):
+    data = Offer.objects.all()
+    serializer = OfferSerializer(data, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_parameters(request):
     data = Parameter.objects.all()
-    
     serializer = ParameterSerializer(data, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_details(request):
+    data = Detail.objects.all()
+    serializer = DetailSerializer(data, many=True)
     return Response(serializer.data)
