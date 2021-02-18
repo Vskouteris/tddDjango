@@ -27,7 +27,7 @@ SECRET_KEY = '4moak2(vojx&lidd)^a$)(nt@$p*q58b(8grtcvrijve+owj#='
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CORS_ORIGIN_ALLOW_ALL=True
 
 # Application definition
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     'backend',  
     'rest_framework',
+     'corsheaders',
     
 ]
 
@@ -52,6 +53,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'tddDjango.urls'

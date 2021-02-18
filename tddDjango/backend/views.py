@@ -12,6 +12,7 @@ def home_page(request):
     context = {'offers':offers, 'parameters':parameters, 'details':details}
     return render(request, 'backend/home.html',context)
 
+#Views for getting (one or a list of) Offers,Parameters and Details
 @api_view(['GET'])
 def get_list_of_offers(request):
     data = Offer.objects.all()
@@ -48,3 +49,13 @@ def get_detail(request,args):
     detail = Detail.objects.get(id=args)
     serializer = DetailSerializer(detail)
     return Response(serializer.data)
+
+#Post views for creating a new Offer,Parameter or Detail
+@api_view(['POST'])
+def create_offer(request):
+	serializer = OfferSerializer(data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+	return Response(serializer.data)
+
+#Post views for updating a new Offer,Parameter or Detail

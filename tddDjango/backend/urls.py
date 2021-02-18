@@ -12,4 +12,6 @@ urlpatterns = [
     path('parameter/<int:args>/', views.get_parameter, name="get_parameter"),
     path('detail/<int:args>/', views.get_detail, name="get_detail"),
 
+    path('create_offer/',views.create_offer,name='create_offer'),
+
 ]
