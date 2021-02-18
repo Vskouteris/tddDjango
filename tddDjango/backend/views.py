@@ -30,3 +30,21 @@ def get_list_of_details(request):
     data = Detail.objects.all()
     serializer = DetailSerializer(data, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def get_offer(request,args):
+    offer = Offer.objects.get(id=args)
+    serializer = OfferSerializer(offer)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_parameter(request,args):
+    parameter = Parameter.objects.get(id=args)
+    serializer = ParameterSerializer(parameter)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_detail(request,args):
+    detail = Detail.objects.get(id=args)
+    serializer = DetailSerializer(detail)
+    return Response(serializer.data)
