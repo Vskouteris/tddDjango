@@ -13,5 +13,15 @@ urlpatterns = [
     path('detail/<int:args>/', views.get_detail, name="get_detail"),
 
     path('create_offer/',views.create_offer,name='create_offer'),
+    path('create_parameter/',views.create_parameter,name='create_parameter'),
+    path('create_detail/',views.create_detail,name='create_detail'),
+
+    path('update_offer/<int:pk>/',views.update_offer,name='update_offer'),
+    path('update_parameter/<int:pk>/',views.update_parameter,name='update_parameter'),
+    path('update_detail/<int:pk>/',views.update_detail,name='update_detail'),
+
+    path('delete_offer/<int:pk>/',views.deleteOffer,name='delete_offer'),
+    path('delete_parameter/<int:pk>/',views.deleteParameter,name='delete_parameter'),
+    path('delete_detail/<int:pk>/',views.deleteDetail,name='delete_detail'),
 
 ]

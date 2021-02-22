@@ -56,6 +56,65 @@ def create_offer(request):
 	serializer = OfferSerializer(data=request.data)
 	if serializer.is_valid():
 		serializer.save()
+
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def create_parameter(request):
+	serializer = ParameterSerializer(data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def create_detail(request):
+	serializer = DetailSerializer(data=request.data)
+	if serializer.is_valid():
+		serializer.save()
 	return Response(serializer.data)
 
 #Post views for updating a new Offer,Parameter or Detail
+
+@api_view(['POST'])
+def update_offer(request, pk):
+	offer = Offer.objects.get(id=pk)
+	serializer = OfferSerializer(instance=offer, data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def update_parameter(request, pk):
+	parameter = Parameter.objects.get(id=pk)
+	serializer = ParameterSerializer(instance=parameter, data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def update_detail(request, pk):
+	detail = Detail.objects.get(id=pk)
+	serializer = DetailSerializer(instance=detail, data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+	return Response(serializer.data)
+
+#DELETE views for deleting an old Offer,Parameter or Detail
+
+@api_view(['GET','DELETE'])
+def deleteOffer(request, pk):
+	offer = Offer.objects.get(id=pk)
+	offer.delete()
+	return Response('Offer succsesfully deleted!')
+
+@api_view(['GET','DELETE'])
+def deleteParameter(request, pk):
+	parameter = Parameter.objects.get(id=pk)
+	parameter.delete()
+	return Response('Parameter succsesfully deleted!')
+
+@api_view(['GET','DELETE'])
+def deleteDetail(request, pk):
+	detail = Detail.objects.get(id=pk)
+	detail.delete()
+	return Response('Detail succsesfully deleted!')
