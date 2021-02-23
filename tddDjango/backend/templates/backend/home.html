@@ -18,92 +18,22 @@
 		{% extends 'backend/main.html' %}
 		{% load static %}
 		{% block content %}
-			<div class="row">
-				{% for offer in offers %}
-				<div class="col-lg-4">
-					<!-- <img class="thumbnail" src="{{product.imageURL}}"> -->
-					<div class="box-element product">
-						<h3><strong>{{offer}}</strong></h3>
-						<hr>
-						{% for parameter in offer.parameter_set.all %}
-							<h5>{{parameter}}</h5>
-							{% for detail in parameter.detail_set.all %}
-								<h6 style="red">{{detail}}</h6>
-							{% endfor %}
-						{% endfor %}
-						<!-- <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button> -->
-						
-						<!-- <a class="btn btn-outline-success" href="#">View</a> -->
-						<!-- <h4 style="display: inline-block; float: right"><strong>€{{product.price}}</strong></h4> -->
-						
-					</div>
-				</div>
-				{% endfor %}
-			</div>
+		<div>
+			<h3><strong>New Offer</strong></h3>
+			<hr>
 			<div>
-				<div id="form-wrapper">
-					<form id="form">
-						<div class="flex-wrapper">
-							<div style="flex: 6">
-								<hr>
-								<h1><strong>Add an Offer</strong></h1>
-								<input id="customer-name" class="form-control" type="text" name="customer-name" placeholder="What is the name of the customer...">
-								<input id="description" class="form-control" type="text" name="description" placeholder="Description ...">
-								<input id="number-of-pieces" class="form-control" type="text" name="number-of-pieces" placeholder="Τεμάχια">
-							</div>
-							<div style="flex: 1">
-								<input id="submit" class="btn btn-success" type="submit" >
-							</div>
-						</div>
-					</form>
+				<h5>Price</h5>
+				<h5>Sent an email</h5>
+				<h5>Completed</h5>
+				<h5>Αριθμός τεμαχίων</h5>
+				<h5><img src="images/plus.gif" alt="plus"/>Παράμετροι</h5>
+				<div>
+
 				</div>
 			</div>
+		</div>	
 
-			<script type="text/javascript">
-				function getCookie(name) {
-					var cookieValue = null;
-					if (document.cookie && document.cookie !== '') {
-						var cookies = document.cookie.split(';');
-						for (var i = 0; i < cookies.length; i++) {
-							var cookie = cookies[i].trim();
-							// Does this cookie string begin with the name we want?
-							if (cookie.substring(0, name.length + 1) === (name + '=')) {
-								cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-								break;
-							}
-						}
-					}
-					return cookieValue;
-				}
-				var csrftoken = getCookie('csrftoken');
-				var form = document.getElementById('form-wrapper')
-				form.addEventListener('submit', function(e){
-					e.preventDefault()
-					console.log('Offer-Form submitted')
-					var url = 'http://127.0.0.1:8000/create_offer/'
-					// if (activeItem != null){
-					// 	var url = `http://127.0.0.1:8000/api/task-update/${activeItem.id}/`
-					// 	activeItem = null
-					// }
-					var data = {"customer_name": document.getElementById('customer-name').value,
-        						"description": document.getElementById('description').value,
-        						"number": document.getElementById('number-of-pieces').value,
-							}
-					console.log(data)
-					fetch(url, {
-						method:'POST',
-						headers:{
-							'Content-type':'application/json',
-							'X-CSRFToken':csrftoken,
-						},
-						body:JSON.stringify(data)
-					}
-					).then(function(response){
-						document.getElementById('form').reset()
-					})
-				})
-			
-			</script>
+
 		{% endblock content %}
 	</body>
 </html>
