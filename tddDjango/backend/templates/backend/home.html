@@ -42,6 +42,11 @@
 					<li>{{offer}}</li>
 				{% endfor %}
 			</div>
+			<form method="POST" action="/">
+				{% csrf_token %}
+				{{formOffer}}
+				<input class="btn btn-info" type="submit" name="Create Task">
+			</form>
 		</div>	
 
 		<script type="text/javascript" src="{% static 'js/main.js' %}"></script>

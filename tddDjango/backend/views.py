@@ -3,14 +3,22 @@ from .models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
+from .forms import *
 
 # Create your views here.
 def home_page(request):
-    offers = Offer.objects.all()
-    parameters = Parameter.objects.all()
-    details = Detail.objects.all()
-    context = {'offers':offers, 'parameters':parameters, 'details':details}
-    return render(request, 'backend/home.html',context)
+	offers = Offer.objects.all()
+	parameters = Parameter.objects.all()
+	details = Detail.objects.all()
+
+	formDetail = DetailForm()
+	formParameter = ParameterForm()
+	formOffer = OfferForm()
+
+	context = {'offers':offers, 'parameters':parameters, 'details':details,
+				"formOffer":formOffer, "formParameter": formParameter, 	"formDetail":formDetail
+	}
+	return render(request, 'backend/home.html',context)
 
 #Views for getting (one or a list of) Offers,Parameters and Details
 @api_view(['GET'])
