@@ -25,6 +25,7 @@
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 		{% extends 'backend/main.html' %}
+		{% load rest_framework %}
 		{% load static %}
 		{% block content %}
 		<div>
@@ -44,7 +45,7 @@
 			</div>
 			<form method="POST" action="/">
 				{% csrf_token %}
-				{{formOffer}}
+				{% render_form formOffer%}
 				<input class="btn btn-info" type="submit" name="Create Task">
 			</form>
 		</div>	

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Offer(models.Model):
     customer_name = models.CharField(max_length=100,null=True,help_text="What is the name of the client?")
+    # na mpei kapoia stigmh auto email = models.EmailField()
     description = models.CharField(max_length=500,null=True,help_text="put a description for this offer")
     number = models.IntegerField(null=True,help_text="How many pieces does the customer want")     #number of temaxia
     extra_price = models.FloatField(default=0)
