@@ -65,7 +65,8 @@ def create_offer(request):
 	serializer = OfferSerializer(data=request.data)
 	if serializer.is_valid():
 		serializer.save()
-
+	else:
+		return Response({'serializer': serializer})
 	return Response(serializer.data)
 
 @api_view(['POST'])
@@ -73,6 +74,8 @@ def create_parameter(request):
 	serializer = ParameterSerializer(data=request.data)
 	if serializer.is_valid():
 		serializer.save()
+	else:
+		return Response({'serializer': serializer})	
 	return Response(serializer.data)
 
 @api_view(['POST'])
@@ -80,6 +83,8 @@ def create_detail(request):
 	serializer = DetailSerializer(data=request.data)
 	if serializer.is_valid():
 		serializer.save()
+	else:
+		return Response({'serializer': serializer})
 	return Response(serializer.data)
 
 #Post views for updating a new Offer,Parameter or Detail
@@ -90,6 +95,8 @@ def update_offer(request, pk):
 	serializer = OfferSerializer(instance=offer, data=request.data)
 	if serializer.is_valid():
 		serializer.save()
+	else:
+		return Response({'serializer': serializer})
 	return Response(serializer.data)
 
 @api_view(['POST'])
@@ -98,6 +105,8 @@ def update_parameter(request, pk):
 	serializer = ParameterSerializer(instance=parameter, data=request.data)
 	if serializer.is_valid():
 		serializer.save()
+	else:
+		return Response({'serializer': serializer})
 	return Response(serializer.data)
 
 @api_view(['POST'])
