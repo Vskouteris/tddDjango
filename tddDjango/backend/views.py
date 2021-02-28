@@ -6,19 +6,6 @@ from .serializers import *
 
 
 # Create your views here.
-# def home_page(request):
-# 	offers = Offer.objects.all()
-# 	parameters = Parameter.objects.all()
-# 	details = Detail.objects.all()
-
-# 	formDetail = DetailForm()
-# 	formParameter = ParameterForm()
-# 	formOffer = OfferForm()
-
-# 	context = {'offers':offers, 'parameters':parameters, 'details':details,
-# 				"formOffer":formOffer, "formParameter": formParameter, 	"formDetail":formDetail
-# 	}
-# 	return render(request, 'backend/home.html',context)
 def home_page(request):
 	offers = Offer.objects.all()
 	parameters = Parameter.objects.all()

@@ -31,7 +31,7 @@
 		<div>
 			<h3><strong>New Offer</strong></h3>
 			<hr>
-			<div>
+			<!-- <div>
 				<h5>Price</h5>
 				<h5>Sent an email</h5>
 				<h5>Completed</h5>
@@ -42,11 +42,36 @@
 				{% for offer in offers %}
 					<li>{{offer}}</li>
 				{% endfor %}
-			</div>
-			<form method="POST" action="/">
+			</div> -->
+
+
+
+
+
+			<form method="POST" action="create_offer/">
+			<!-- <form method="POST" action="create_offer/" class="hidden"> -->
 				{% csrf_token %}
-				{% render_form formOffer%}
-				<input class="btn btn-info" type="submit" name="Create Task">
+				{% render_form formOffer template_pack='rest_framework/horizontal' %}
+				<div class="col-sm-offset-2 col-sm-10 mt-5">
+					<button type="submit" class="btn btn-info">ADD OFFER</button>
+				</div>
+			</form>
+			
+			<form method="POST" action="create_parameter/">
+			<!-- <form method="POST" action="create_parameter/" class="hidden"> -->
+				{% csrf_token %}
+				{% render_form formParameter template_pack='rest_framework/horizontal' %}
+				<div class="col-sm-offset-2 col-sm-10 mt-5">
+					<button type="submit" class="btn btn-info">ADD PARAMETER</button>
+				</div>
+			</form>
+			<!-- <form method="POST" action="create_detail/"> -->
+			<form method="POST" action="create_detail/" class="hidden">
+				{% csrf_token %}
+				{% render_form formDetail template_pack='rest_framework/horizontal' %}
+				<div class="col-sm-offset-2 col-sm-10 mt-5">
+					<button type="submit" class="btn btn-info">ADD DETAIL</button>
+				</div>
 			</form>
 		</div>	
 
