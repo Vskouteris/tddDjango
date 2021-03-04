@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from .models import *
+from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import *
+from rest_framework import mixins
+from rest_framework import generics
+
 
 
 # Create your views here.
@@ -21,13 +24,27 @@ def home_page(request):
 	return render(request, 'backend/home.html',context)
 
 
+class OfferViewList(mixins.ListModelMixin,
+					mixins.CreateModelMixin,
+					generics.GenericAPIView):
+
+	queryset= Offer.objects.all()
+	serializer_class=OfferSerializer
+
+	def get(self,request, *args, **kwargs):
+		return self.list(request, *args, **kwargs)
+
+	def post(self, request, *args, **kwargs):
+		return self.create(request, *args, **kwargs)
+
+
 #Views for getting (one or a list of) Offers,Parameters and Details
-@api_view(['GET'])
-def get_list_of_offers(request):
-    data = Offer.objects.all()
-    # print(data[::1])
-    serializer = OfferSerializer(data, many=True)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# def get_list_of_offers(request):
+#     data = Offer.objects.all()
+#     # print(data[::1])
+#     serializer = OfferSerializer(data, many=True)
+#     return Response(serializer.data)
 
 @api_view(['GET'])
 def get_list_of_parameters(request):
@@ -60,14 +77,14 @@ def get_detail(request,args):
     return Response(serializer.data)
 
 #Post views for creating a new Offer,Parameter or Detail
-@api_view(['POST'])
-def create_offer(request):
-	serializer = OfferSerializer(data=request.data)
-	if serializer.is_valid():
-		serializer.save()
-	else:
-		return Response({'serializer': serializer})
-	return Response(serializer.data)
+# @api_view(['POST'])
+# def create_offer(request):
+# 	serializer = OfferSerializer(data=request.data)
+# 	if serializer.is_valid():
+# 		serializer.save()
+# 	else:
+# 		return Response({'serializer': serializer})
+# 	return Response(serializer.data)
 
 @api_view(['POST'])
 def create_parameter(request):
