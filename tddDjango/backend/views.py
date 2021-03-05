@@ -37,26 +37,37 @@ class OfferViewList(mixins.ListModelMixin,
 	def post(self, request, *args, **kwargs):
 		return self.create(request, *args, **kwargs)
 
+class ParameterViewList(mixins.ListModelMixin,
+					mixins.CreateModelMixin,
+					generics.GenericAPIView):
 
-#Views for getting (one or a list of) Offers,Parameters and Details
-# @api_view(['GET'])
-# def get_list_of_offers(request):
-#     data = Offer.objects.all()
-#     # print(data[::1])
-#     serializer = OfferSerializer(data, many=True)
-#     return Response(serializer.data)
+	queryset= Parameter.objects.all()
+	serializer_class=ParameterSerializer
 
-@api_view(['GET'])
-def get_list_of_parameters(request):
-    data = Parameter.objects.all()
-    serializer = ParameterSerializer(data, many=True)
-    return Response(serializer.data)
+	def get(self,request, *args, **kwargs):
+		return self.list(request, *args, **kwargs)
 
-@api_view(['GET'])
-def get_list_of_details(request):
-    data = Detail.objects.all()
-    serializer = DetailSerializer(data, many=True)
-    return Response(serializer.data)
+	def post(self, request, *args, **kwargs):
+		return self.create(request, *args, **kwargs)
+
+class DetailViewList(mixins.ListModelMixin,
+					mixins.CreateModelMixin,
+					generics.GenericAPIView):
+
+	queryset= Detail.objects.all()
+	serializer_class=DetailSerializer
+
+	def get(self,request, *args, **kwargs):
+		return self.list(request, *args, **kwargs)
+
+	def post(self, request, *args, **kwargs):
+		return self.create(request, *args, **kwargs)		
+
+#Offer get update delete
+class OfferRUD(generics.RetrieveUpdateDestroyAPIView):
+	queryset=Offer.objects.all()
+	serializer_class= OfferSerializer
+
 
 @api_view(['GET'])
 def get_offer(request,args):
@@ -75,36 +86,6 @@ def get_detail(request,args):
     detail = Detail.objects.get(id=args)
     serializer = DetailSerializer(detail)
     return Response(serializer.data)
-
-#Post views for creating a new Offer,Parameter or Detail
-# @api_view(['POST'])
-# def create_offer(request):
-# 	serializer = OfferSerializer(data=request.data)
-# 	if serializer.is_valid():
-# 		serializer.save()
-# 	else:
-# 		return Response({'serializer': serializer})
-# 	return Response(serializer.data)
-
-@api_view(['POST'])
-def create_parameter(request):
-	serializer = ParameterSerializer(data=request.data)
-	if serializer.is_valid():
-		serializer.save()
-	else:
-		return Response({'serializer': serializer})	
-	return Response(serializer.data)
-
-@api_view(['POST'])
-def create_detail(request):
-	serializer = DetailSerializer(data=request.data)
-	if serializer.is_valid():
-		serializer.save()
-	else:
-		return Response({'serializer': serializer})
-	return Response(serializer.data)
-
-#Post views for updating a new Offer,Parameter or Detail
 
 @api_view(['POST'])
 def update_offer(request, pk):
