@@ -27,9 +27,12 @@ class Parameter(models.Model):
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
       
     def __str__(self):
-        return self.name+" ("+str(self.description) +" )"
-    
-    
+        try:
+            text = self.name+" ("+str(self.description) +" )"
+        except:
+            text = str(self.name)
+        return text
+
     @property
     def get_parameter_total(self):
         allDetails = self.details.all()
