@@ -20,21 +20,18 @@ class TestUrls(SimpleTestCase):
         url = reverse('details list')
         self.assertEquals(resolve(url).func.view_class,DetailViewList)
 
-    # def test_home_url_is_resolved(self):
-    #     url = reverse('home')
-    #     self.assertEquals(resolve(url).func,home_page)
+    def test_offer_RUD_resolves(self):
+        url = reverse('one offer', kwargs={'pk': 1})    # we don't care if there is an object with pk=1 to get because we are just testing that the correct func is being called 
+        self.assertEquals(resolve(url).func.view_class,OfferRUD)
 
-    # def test_home_url_is_resolved(self):
-    #     url = reverse('home')
-    #     self.assertEquals(resolve(url).func,home_page)
-
-    # def test_home_url_is_resolved(self):
-    #     url = reverse('home')
-    #     self.assertEquals(resolve(url).func,home_page)
-        
-    # def test_home_url_is_resolved(self):
-    #     url = reverse('home')
-    #     self.assertEquals(resolve(url).func,home_page)
+    def test_parameter_RUD_resolves(self):
+        url = reverse('one parameter', kwargs={'pk': 1})    # we don't care if there is an object with pk=1 to get because we are just testing that the correct func is being called 
+        self.assertEquals(resolve(url).func.view_class,ParameterRUD)
+    
+    def test_detail_RUD_resolves(self):
+        url = reverse('one detail', kwargs={'pk': 1})    # we don't care if there is an object with pk=1 to get because we are just testing that the correct func is being called 
+        self.assertEquals(resolve(url).func.view_class,DetailRUD)
+    
 
 
 

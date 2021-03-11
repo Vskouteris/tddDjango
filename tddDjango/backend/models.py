@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -16,6 +17,11 @@ class Detail(models.Model):
     category = models.CharField(choices=CATEGORY_OPTIONS, max_length=255,default=CATEGORY_OPTIONS[0])
     price = models.FloatField()
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+
+    def save(self,*args,**kwargs):
+        self.slug = slugify(self.name)
+        super(Detail,self).save(*args,**kwargs)
 
     def __str__(self):
         return self.name+"-"+self.category
@@ -25,6 +31,11 @@ class Parameter(models.Model):
     name = models.CharField(max_length=100,null=True)
     description = models.CharField(max_length=300,null=True)
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+
+    def save(self,*args,**kwargs):
+        self.slug = slugify(self.name)
+        super(Parameter,self).save(*args,**kwargs)
       
     def __str__(self):
         try:
@@ -46,7 +57,11 @@ class Offer(models.Model):
     description = models.CharField(max_length=500,null=True,help_text="put a description for this offer")
     number = models.IntegerField(null=True,help_text="How many pieces does the customer want")     #number of temaxia
     extra_price = models.FloatField(default=0)
+    slug = models.SlugField(max_length=100,unique=True, blank=True)
 
+    def save(self,*args,**kwargs):
+        self.slug = slugify(self.customer_name)
+        super(Offer,self).save(*args,**kwargs)
 
     def __str__(self):
         return self.customer_name+" asked for "+str(self.number)+" pieces"
