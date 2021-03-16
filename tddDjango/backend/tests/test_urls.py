@@ -31,14 +31,6 @@ class TestUrls(SimpleTestCase):
     def test_detail_RUD_resolves(self):
         url = reverse('one detail', kwargs={'pk': 1})    # we don't care if there is an object with pk=1 to get because we are just testing that the correct func is being called 
         self.assertEquals(resolve(url).func.view_class,DetailRUD)
-    
-
-
-
-
-
-
-
 
 
 
