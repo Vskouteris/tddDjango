@@ -87,7 +87,7 @@ import dj_database_url
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tomiMpellos',#check the m in tomiMpellos or tomimpellos because when creating database from terminal automatically changes to all lowercase
+        'NAME': 'tomimpellos',#check the m in tomiMpellos or tomimpellos because when creating database from terminal automatically changes to all lowercase
         'USER': 'postgres',
         'PASSWORD': 'tomiMpellos',
         'HOST': 'localhost'
