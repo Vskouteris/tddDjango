@@ -6,6 +6,7 @@ from django.utils.text import slugify
 
 class Detail(models.Model):
     CATEGORY_OPTIONS = [
+        ('NO OPTION', 'NO OPTION'),
         ('HOURS', 'HOURS'),
         ('DIMENSIONS', 'DIMENSIONS'),
         ('TYPE', 'TYPE'),
@@ -15,7 +16,7 @@ class Detail(models.Model):
     # parameter = models.ManyToManyField(Parameter)
     name = models.CharField(max_length=100,null=True)   #name of the detail of the parameter e.g: dimensions,ontoule
     category = models.CharField(choices=CATEGORY_OPTIONS, max_length=255,default=CATEGORY_OPTIONS[0])
-    price = models.FloatField()
+    price = models.FloatField(default=0)
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
     slug = models.SlugField(max_length=100, unique=True, blank=True)
 
@@ -38,10 +39,14 @@ class Parameter(models.Model):
         super(Parameter,self).save(*args,**kwargs)
       
     def __str__(self):
+        text=''
         try:
             text = self.name+" ("+str(self.description) +" )"
         except:
-            text = str(self.name)
+            if self.name:
+                text = str(self.name)
+            elif self.description:
+                text = str(self.description)
         return text
 
     @property
