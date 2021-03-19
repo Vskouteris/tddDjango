@@ -83,14 +83,36 @@ class TestDetailViewList(TestCase):
 class TestOfferRUD(TestCase):
     def setUp(self):
         #   ATTENTION I have to create an offer with all fields valid and linked parameters.so i have to also create some parameters before the offer 
-        offer = Offer.objects.create(customer_name='test customer')
+        # offer = Offer.objects.create(customer_name='test customer')
+        pass
 
     def test_get_correct_offer(self):
-        #find by id the offer i want and not some other offer
-        pass
+        par1 =Parameter.objects.create(name='test parameter1',extra_price=0,description='parameter for testing offers')
+        par2 =Parameter.objects.create(name='test parameter2',extra_price=0,description='parameter for testing offers')
+        offer = Offer.objects.create(customer_name='test offer',extra_price=0,description='testing yo man',number=250)
+        Offer.objects.first().parameters.add(par1,par2)
+
+        self.assertEquals(self.client.get(f'/offers/{offer.pk}/').json()['description'],'testing yo man')
  
     def test_get_correct_parameters_for_this_offer(self):
-        pass
+        par1 =Parameter.objects.create(name='test parameter1',extra_price=0,description='parameter for testing offers')
+        par2 =Parameter.objects.create(name='test parameter2',extra_price=0,description='parameter for testing offers')
+        offer = Offer.objects.create(customer_name='test offer',extra_price=0,description='testing yo man',number=250)
+        Offer.objects.first().parameters.add(par1,par2)
+
+        offer_parameters =self.client.get(f'/offers/{offer.pk}/').json()['parameters']
+        offer_parameters = list(map(int, offer_parameters))
+        
+        self.assertEquals(Parameter.objects.filter(id__in=offer_parameters).count(),2)
 
     def test_update_this_offer(self):
+        par1 =Parameter.objects.create(name='test parameter1',extra_price=0,description='parameter for testing offers')
+        par2 =Parameter.objects.create(name='test parameter2',extra_price=0,description='parameter for testing offers')
+        offer = Offer.objects.create(customer_name='test offer',extra_price=0,description='testing yo man',number=250)
+        Offer.objects.first().parameters.add(par1,par2)
+        
+        response = self.client.put(f'/offers/{offer.pk}/',data={'description':'UPDATE YO MAN'},content_type='application/json')
+        self.assertEquals(response.json()['description'],'UPDATE YO MAN')
+        
+    def test_delete_this_offer(self):
         pass
