@@ -83,7 +83,7 @@ class TestDetailViewList(TestCase):
 class TestOfferRUD(TestCase):
     def setUp(self):
         #   ATTENTION I have to create an offer with all fields valid and linked parameters.so i have to also create some parameters before the offer 
-        # offer = Offer.objects.create(customer_name='test customer')
+    
         par1 =Parameter.objects.create(name='test parameter1',extra_price=0,description='parameter for testing offers')
         par2 =Parameter.objects.create(name='test parameter2',extra_price=0,description='parameter for testing offers')
         Offer.objects.create(customer_name='test offer',extra_price=0,description='testing yo man',number=250)
@@ -113,3 +113,37 @@ class TestOfferRUD(TestCase):
         self.client.delete(f'/offers/{offer.pk}/')
         self.assertEquals(len(Offer.objects.all()),0)
         
+
+@tag('parameterrud')
+class TestParameterRUD(TestCase):
+    def setUp(self):
+        #   ATTENTION I have to create an parameter with all fields valid and linked details.so i have to also create some details before the parameter 
+        
+        det1 =Detail.objects.create(name='test detail1',extra_price=0)
+        det2 =Detail.objects.create(name='test detail2',extra_price=0)
+        Parameter.objects.create(name='test parameter',extra_price=0,description='parameter created for testing')
+        Parameter.objects.first().details.add(det1,det2)
+
+    def test_get_correct_parameter(self):
+        parameter = Parameter.objects.first()   
+        self.assertEquals(self.client.get(f'/parameters/{parameter.pk}/').json()['description'],'parameter created for testing')
+ 
+    def test_get_correct_details_for_this_parameter(self):
+        parameter = Parameter.objects.first()
+
+        parameter_details =self.client.get(f'/parameters/{parameter.pk}/').json()['details']
+        parameter_details = list(map(int, parameter_details))
+        # print(parameter_details)  #here I  should print the  details for this parameter
+        self.assertEquals(Detail.objects.filter(id__in=parameter_details).count(),2)
+
+    def test_update_this_parameter(self):
+        parameter = Parameter.objects.first()
+
+        response = self.client.put(f'/parameters/{parameter.pk}/',data={'description':'UPDATE YO MAN'},content_type='application/json') #here should self.assert that new description != of old description
+        self.assertEquals(response.json()['description'],'UPDATE YO MAN')
+        
+    def test_delete_this_parameter(self):
+        parameter = Parameter.objects.first()
+        
+        self.client.delete(f'/parameters/{parameter.pk}/')
+        self.assertEquals(len(Offer.objects.all()),0)
