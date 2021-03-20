@@ -146,4 +146,28 @@ class TestParameterRUD(TestCase):
         parameter = Parameter.objects.first()
         
         self.client.delete(f'/parameters/{parameter.pk}/')
-        self.assertEquals(len(Offer.objects.all()),0)
+        self.assertEquals(len(Parameter.objects.all()),0)
+
+@tag('detailrud')
+class TestDetailRUD(TestCase):
+    def setUp(self):
+        #   ATTENTION I have to create an parameter with all fields         
+        Detail.objects.create(name='test detail1',category='HOURS',price=0,extra_price=0)
+
+    def test_get_correct_detail(self):
+        Detail.objects.create(name='test detail2',category='DIMENSIONS',price=1,extra_price=0.1)
+        detail = Detail.objects.first()   
+        self.assertEquals(self.client.get(f'/details/{detail.pk}/').json()['category'],'HOURS')
+
+    def test_update_this_detail(self):
+        detail = Detail.objects.first()
+
+        response = self.client.put(f'/details/{detail.pk}/',data={'category':'NO OPTION'},content_type='application/json') 
+        self.assertEquals(response.json()['category'],'NO OPTION')
+        
+    def test_delete_this_detail(self):
+        detail = Detail.objects.first()
+        
+        self.assertEquals(len(Detail.objects.all()),1)
+        self.client.delete(f'/details/{detail.pk}/')
+        self.assertEquals(len(Detail.objects.all()),0)
