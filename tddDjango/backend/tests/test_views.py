@@ -101,10 +101,10 @@ class TestOfferRUD(TestCase):
         
         self.assertEquals(Parameter.objects.filter(id__in=offer_parameters).count(),2)
 
-    def test_update_this_offer(self):
+    def test_update_this_offer(self):   #ATTENTION look test_update_this_detail
         offer = Offer.objects.first()
 
-        response = self.client.put(f'/offers/{offer.pk}/',data={'description':'UPDATE YO MAN'},content_type='application/json')
+        response = self.client.put(f'/offers/{offer.pk}/',data={'description':'UPDATE YO MAN','customer_name':offer.customer_name},content_type='application/json')
         self.assertEquals(response.json()['description'],'UPDATE YO MAN')
         
     def test_delete_this_offer(self):
@@ -116,9 +116,7 @@ class TestOfferRUD(TestCase):
 
 @tag('parameterrud')
 class TestParameterRUD(TestCase):
-    def setUp(self):
-        #   ATTENTION I have to create an parameter with all fields valid and linked details.so i have to also create some details before the parameter 
-        
+    def setUp(self):        
         det1 =Detail.objects.create(name='test detail1',extra_price=0)
         det2 =Detail.objects.create(name='test detail2',extra_price=0)
         Parameter.objects.create(name='test parameter',extra_price=0,description='parameter created for testing')
@@ -133,13 +131,12 @@ class TestParameterRUD(TestCase):
 
         parameter_details =self.client.get(f'/parameters/{parameter.pk}/').json()['details']
         parameter_details = list(map(int, parameter_details))
-        # print(parameter_details)  #here I  should print the  details for this parameter
         self.assertEquals(Detail.objects.filter(id__in=parameter_details).count(),2)
 
-    def test_update_this_parameter(self):
+    def test_update_this_parameter(self):   #ATTENTION i HAVE TO PASS VALID DATA OTHERWISE I GET BAD REQUEST---for example when changed name from null=True to null=False
         parameter = Parameter.objects.first()
 
-        response = self.client.put(f'/parameters/{parameter.pk}/',data={'description':'UPDATE YO MAN'},content_type='application/json') #here should self.assert that new description != of old description
+        response = self.client.put(f'/parameters/{parameter.pk}/',data={'description':'UPDATE YO MAN','name':parameter.name},content_type='application/json') #here should self.assert that new description != of old description
         self.assertEquals(response.json()['description'],'UPDATE YO MAN')
         
     def test_delete_this_parameter(self):
@@ -150,8 +147,7 @@ class TestParameterRUD(TestCase):
 
 @tag('detailrud')
 class TestDetailRUD(TestCase):
-    def setUp(self):
-        #   ATTENTION I have to create an parameter with all fields         
+    def setUp(self):       
         Detail.objects.create(name='test detail1',category='HOURS',price=0,extra_price=0)
 
     def test_get_correct_detail(self):
@@ -159,10 +155,10 @@ class TestDetailRUD(TestCase):
         detail = Detail.objects.first()   
         self.assertEquals(self.client.get(f'/details/{detail.pk}/').json()['category'],'HOURS')
 
-    def test_update_this_detail(self):
-        detail = Detail.objects.first()
-
-        response = self.client.put(f'/details/{detail.pk}/',data={'category':'NO OPTION'},content_type='application/json') 
+    def test_update_this_detail(self):  #ATTENTION i HAVE TO PASS VALID DATA OTHERWISE I GET BAD REQUEST---for example when changed name from null=True to null=False
+        detail = Detail.objects.first()     # I had to add to data ,"name":detail.name
+    
+        response = self.client.put(f'/details/{detail.pk}/',data={'category':'NO OPTION',"name":detail.name},content_type='application/json') 
         self.assertEquals(response.json()['category'],'NO OPTION')
         
     def test_delete_this_detail(self):

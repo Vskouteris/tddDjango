@@ -30,25 +30,18 @@ class Detail(models.Model):
 
 class Parameter(models.Model):
     details= models.ManyToManyField(Detail,help_text="choose all Details affecting the parameter",blank=True)
-    name = models.CharField(max_length=100,null=True)
-    description = models.CharField(max_length=300,null=True)
+    name = models.CharField(max_length=100,null=False)
+    description = models.CharField(max_length=300,null=False)
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
     slug = models.SlugField(max_length=100, unique=True, blank=True)
 
     def save(self,*args,**kwargs):
-        self.slug = slugify(self.name)
-        super(Parameter,self).save(*args,**kwargs)
+        if self.name!="": 
+            self.slug = slugify(self.name)
+            super(Parameter,self).save(*args,**kwargs)
       
     def __str__(self):
-        text=''
-        try:
-            text = self.name+" ("+str(self.description) +" )"
-        except:
-            if self.name:
-                text = str(self.name)
-            elif self.description:
-                text = str(self.description)
-        return text
+        return self.name+"-"+self.description
 
     @property
     def get_parameter_total(self):
@@ -58,16 +51,17 @@ class Parameter(models.Model):
 
 class Offer(models.Model):
     parameters= models.ManyToManyField(Parameter,help_text="choose all parameters affecting the offer",blank=True)
-    customer_name = models.CharField(max_length=100,null=True,help_text="What is the name of the client?")
+    customer_name = models.CharField(max_length=100,null=False,help_text="What is the name of the client?")
     # na mpei kapoia stigmh auto email = models.EmailField()
-    description = models.CharField(max_length=500,null=True,help_text="put a description for this offer")
+    description = models.CharField(max_length=500,null=False,help_text="put a description for this offer")
     number = models.IntegerField(null=True,help_text="How many pieces does the customer want")     #number of temaxia
     extra_price = models.FloatField(default=0)
     slug = models.SlugField(max_length=100,unique=True, blank=True)
 
     def save(self,*args,**kwargs):
-        self.slug = slugify(self.customer_name)
-        super(Offer,self).save(*args,**kwargs)
+        if self.customer_name!="":
+            self.slug = slugify(self.customer_name)
+            super(Offer,self).save(*args,**kwargs)
 
     def __str__(self):
         return self.customer_name+" asked for "+str(self.number)+" pieces"
