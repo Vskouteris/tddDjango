@@ -14,15 +14,16 @@ class Detail(models.Model):
         ('ONTOULE', 'ONTOULE')
     ]
     # parameter = models.ManyToManyField(Parameter)
-    name = models.CharField(max_length=100,null=True)   #name of the detail of the parameter e.g: dimensions,ontoule
-    category = models.CharField(choices=CATEGORY_OPTIONS, max_length=255,default=CATEGORY_OPTIONS[0])
+    name = models.CharField(max_length=100,null=False)   #name of the detail of the parameter e.g: dimensions,ontoule
+    category = models.CharField(choices=CATEGORY_OPTIONS, max_length=255,default=CATEGORY_OPTIONS[0],null=False)
     price = models.FloatField(default=0)
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
     slug = models.SlugField(max_length=100, unique=True, blank=True)
 
     def save(self,*args,**kwargs):
-        self.slug = slugify(self.name)
-        super(Detail,self).save(*args,**kwargs)
+        if self.name!="":    
+            self.slug = slugify(self.name)
+            super(Detail,self).save(*args,**kwargs)
 
     def __str__(self):
         return self.name+"-"+self.category
