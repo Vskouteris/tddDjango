@@ -29,7 +29,7 @@ class Detail(models.Model):
         return self.name+"-"+self.category
 
 class Parameter(models.Model):
-    details= models.ManyToManyField(Detail,help_text="choose all Details affecting the parameter",blank=True)
+    details= models.ManyToManyField(Detail,help_text="choose all Details affecting the parameter",blank=True, related_name='parameters')
     name = models.CharField(max_length=100,null=False)
     description = models.CharField(max_length=300,null=False)
     extra_price = models.FloatField(default=0)   #one field for the user to add to the price manually
@@ -50,7 +50,7 @@ class Parameter(models.Model):
         return total    
 
 class Offer(models.Model):
-    parameters= models.ManyToManyField(Parameter,help_text="choose all parameters affecting the offer",blank=True)
+    parameters= models.ManyToManyField(Parameter,help_text="choose all parameters affecting the offer",blank=True, related_name='offers')
     customer_name = models.CharField(max_length=100,null=False,help_text="What is the name of the client?")
     # na mpei kapoia stigmh auto email = models.EmailField()
     description = models.CharField(max_length=500,null=False,help_text="put a description for this offer")
