@@ -21,7 +21,7 @@ def home_page(request):
 	context = {'offers':offers, 'parameters':parameters, 'details':details,
 				"formOffer":formOffer, "formParameter": formParameter, 	"formDetail":formDetail
 	}
-	return render(request, 'backend/home.html',context)
+	return render(request, 'backend/new_offer.html',context)
 
 
 class OfferViewList(mixins.ListModelMixin,
