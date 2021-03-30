@@ -3,6 +3,7 @@ from .models import *
 from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import mixins
 from rest_framework import generics
 
@@ -30,9 +31,17 @@ class OfferViewList(mixins.ListModelMixin,
 
 	queryset= Offer.objects.all()
 	serializer_class=OfferSerializer
-
+	renderer_classes = [TemplateHTMLRenderer]
+	template_name='backend/new_offer.html'
+	
 	def get(self,request, *args, **kwargs):
-		return self.list(request, *args, **kwargs)
+		query = self.request.GET.get('search')
+		if query:
+			result=Offer.objects.filter(customer_name__contains=query)
+		else:
+			result = self.get_queryset()
+		return Response({'offers': result})
+		# return self.list(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
 		return self.create(request, *args, **kwargs)

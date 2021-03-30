@@ -15,6 +15,12 @@
 			<div class="card-header ">
 				<h6 class="title d-inline">Όλες οι Προσφορές(6)</h6>
 				<p class="card-category d-inline">φίλτρο</p>
+				<form class="d-inline" method="GET" action="{% url 'offers list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
+					<input class="btn-link" type="search" name="search"> 
+					<button class="btn btn-link" type="submit"><i class="tim-icons icon-zoom-split" ></i>
+						<span class="d-lg-none d-md-block">Search</span>
+					</button>
+				</form>
 				<div class="dropdown">
 					<button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
 						<i class="tim-icons icon-settings-gear-63"></i>
@@ -30,35 +36,66 @@
 			<div class="table-full-width table-responsive">
 				<table class="table">
 				<tbody>
-					{% for x in offers %}
-					<tr>
-						<td>
-							<div class="form-check">
-								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox" value="">
-									<span class="form-check-sign">
-									<span class="check"></span>
-									</span>
-								</label>
-							</div>
-						</td>
-						<td>
-							{% csrf_token %}
-							<p class="title">{{x.customer_name}}</p>
-							<p class="text-muted">{{x.description}}</p>							
-						</td>
-						<td class="td-actions text-right">
-							<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit offer">
-							<i class="tim-icons icon-pencil"></i>
-							</button>
-							<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
-								<i class="tim-icons icon-notes"></i>
-							</button>
-							<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import offer">
-								<i class="tim-icons icon-cloud-upload-94"></i>
-							</button>
-						</td>
-					</tr>
+					{% for result in all_search_results %}
+						<tr>
+							<td>
+								<div class="form-check">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" value="">
+										<span class="form-check-sign">
+										<span class="check"></span>
+										</span>
+									</label>
+								</div>
+							</td>
+							<td>
+								{% csrf_token %}
+								<p class="title">{{result.customer_name}}</p>
+								<p class="teresultt-muted">{{result.description}}</p>							
+							</td>
+							<td class="td-actions text-right">
+								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit offer">
+								<i class="tim-icons icon-pencil"></i>
+								</button>
+								<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
+									<i class="tim-icons icon-notes"></i>
+								</button>
+								<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import offer">
+									<i class="tim-icons icon-cloud-upload-94"></i>
+								</button>
+							</td>
+						</tr>
+					{% empty %}
+						{% for x in offers %}
+						<tr>
+							<td>
+								<div class="form-check">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" value="">
+										<span class="form-check-sign">
+										<span class="check"></span>
+										</span>
+									</label>
+								</div>
+							</td>
+							<td>
+								{% csrf_token %}
+								<p class="title">{{x.customer_name}}</p>
+								<p class="text-muted">{{x.description}}</p>							
+							</td>
+							<td class="td-actions text-right">
+								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit offer">
+								<i class="tim-icons icon-pencil"></i>
+								</button>
+								<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
+									<i class="tim-icons icon-notes"></i>
+								</button>
+								<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import offer">
+									<i class="tim-icons icon-cloud-upload-94"></i>
+								</button>
+							</td>
+						</tr>
+						{% endfor %}
 					{% endfor %}
 					<tr>
 					<td>
