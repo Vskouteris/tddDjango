@@ -39,9 +39,8 @@ class OfferViewList(mixins.ListModelMixin,
 		if query:
 			result=Offer.objects.filter(customer_name__contains=query)
 		else:
-			result = self.get_queryset()
-		return Response({'offers': result})
-		# return self.list(request, *args, **kwargs)
+			result = Offer.objects.all()
+		return Response({'offers': result,'details': Detail.objects.all(),'parameters':Parameter.objects.all()})
 
 	def post(self, request, *args, **kwargs):
 		return self.create(request, *args, **kwargs)
@@ -52,9 +51,16 @@ class ParameterViewList(mixins.ListModelMixin,
 
 	queryset= Parameter.objects.all()
 	serializer_class=ParameterSerializer
+	renderer_classes = [TemplateHTMLRenderer]
+	template_name='backend/new_offer.html'
 
 	def get(self,request, *args, **kwargs):
-		return self.list(request, *args, **kwargs)
+		query = self.request.GET.get('search')
+		if query:
+			result=Parameter.objects.filter(name__contains=query)
+		else:
+			result = Parameter.objects.all()
+		return Response({'parameters': result,'offers': Offer.objects.all(),'details': Detail.objects.all()})
 
 	def post(self, request, *args, **kwargs):
 		return self.create(request, *args, **kwargs)
@@ -65,9 +71,16 @@ class DetailViewList(mixins.ListModelMixin,
 
 	queryset= Detail.objects.all()
 	serializer_class=DetailSerializer
+	renderer_classes = [TemplateHTMLRenderer]
+	template_name='backend/new_offer.html'
 
 	def get(self,request, *args, **kwargs):
-		return self.list(request, *args, **kwargs)
+		query = self.request.GET.get('search')
+		if query:
+			result=Detail.objects.filter(name__contains=query)
+		else:
+			result = Detail.objects.all()
+		return Response({'parameters':Parameter.objects.all(),'offers': Offer.objects.all(),'details': result})
 
 	def post(self, request, *args, **kwargs):
 		return self.create(request, *args, **kwargs)		

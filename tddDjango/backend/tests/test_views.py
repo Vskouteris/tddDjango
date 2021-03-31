@@ -13,7 +13,7 @@ class TestViews(TestCase):      # HOW TO TEST JUST THIS CLASS??? by putting tags
     def test_home_page_renders_correct_html(self):
         response = self.client.get(reverse('home'))
         self.assertEquals(response.status_code,200)
-        self.assertTemplateUsed(response,'backend/home.html')
+        self.assertTemplateUsed(response,'backend/new_offer.html')
 
 @tag('offerviewlist')
 class TestOfferViewList(TestCase):
@@ -23,15 +23,16 @@ class TestOfferViewList(TestCase):
         offer2 = Offer.objects.create(customer_name='test customer 2') 
         response = self.client.get('/offers/')
         self.assertEquals(response.status_code,200)
-        self.assertEquals(len(response.json()),2)
+        self.assertEquals(len(response.data['offers']),2)   # when Content-Type header is "text/html; charset=utf-8", not "application/json" otherwise the line below will suffice
+        # self.assertEquals(len(response.json()),2)
         
 
     def test_post_new_valid_offer(self):
         response = self.client.post('/offers/',data={   'customer_name' : 'testcustomer' ,
                                                         'description' :  "test saving to db with post"})
         self.assertEqual(Offer.objects.count(), 1)
-        new_offer = Offer.objects.first()
-        self.assertEqual(new_offer.description, 'test saving to db with post')
+        first_offer = Offer.objects.first()
+        self.assertEqual(first_offer.description, 'test saving to db with post')
 
     # def test_post_new_INvalid_offer(self):
     #     pass
@@ -44,7 +45,8 @@ class TestParameterViewList(TestCase):
         parameter2 = Parameter.objects.create(name='test parameter 2') 
         response = self.client.get('/parameters/')
         self.assertEquals(response.status_code,200)
-        self.assertEquals(len(response.json()),2)
+        self.assertEquals(len(response.data['parameters']),2)   # when Content-Type header is "text/html; charset=utf-8", not "application/json" otherwise the line below will suffice
+        # self.assertEquals(len(response.json()),2)
         
 
     def test_post_new_valid_parameter(self):
@@ -65,7 +67,8 @@ class TestDetailViewList(TestCase):
         detail2 = Detail.objects.create(name='test detail 2') 
         response = self.client.get('/details/')
         self.assertEquals(response.status_code,200)
-        self.assertEquals(len(response.json()),2)
+        self.assertEquals(len(response.data['details']),2)      # when Content-Type header is "text/html; charset=utf-8", not "application/json" otherwise the line below will suffice
+        # self.assertEquals(len(response.json()),2)
         
 
     def test_post_new_valid_detail(self):
