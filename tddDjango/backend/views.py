@@ -22,7 +22,7 @@ def home_page(request):
 	context = {'offers':offers, 'parameters':parameters, 'details':details,
 				"formOffer":formOffer, "formParameter": formParameter, 	"formDetail":formDetail
 	}
-	return render(request, 'backend/new_offer.html',context)
+	return render(request, 'backend/all_lists.html',context)
 
 
 class OfferViewList(mixins.ListModelMixin,
@@ -32,7 +32,7 @@ class OfferViewList(mixins.ListModelMixin,
 	queryset= Offer.objects.all()
 	serializer_class=OfferSerializer
 	renderer_classes = [TemplateHTMLRenderer]
-	template_name='backend/new_offer.html'
+	template_name='backend/all_lists.html'
 	
 	def get(self,request, *args, **kwargs):
 		query = self.request.GET.get('search')
@@ -52,7 +52,7 @@ class ParameterViewList(mixins.ListModelMixin,
 	queryset= Parameter.objects.all()
 	serializer_class=ParameterSerializer
 	renderer_classes = [TemplateHTMLRenderer]
-	template_name='backend/new_offer.html'
+	template_name='backend/all_lists.html'
 
 	def get(self,request, *args, **kwargs):
 		query = self.request.GET.get('search')
@@ -72,7 +72,7 @@ class DetailViewList(mixins.ListModelMixin,
 	queryset= Detail.objects.all()
 	serializer_class=DetailSerializer
 	renderer_classes = [TemplateHTMLRenderer]
-	template_name='backend/new_offer.html'
+	template_name='backend/all_lists.html'
 
 	def get(self,request, *args, **kwargs):
 		query = self.request.GET.get('search')

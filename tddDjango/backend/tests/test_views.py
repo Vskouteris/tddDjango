@@ -13,7 +13,7 @@ class TestViews(TestCase):      # HOW TO TEST JUST THIS CLASS??? by putting tags
     def test_home_page_renders_correct_html(self):
         response = self.client.get(reverse('home'))
         self.assertEquals(response.status_code,200)
-        self.assertTemplateUsed(response,'backend/new_offer.html')
+        self.assertTemplateUsed(response,'backend/all_lists.html')
 
 @tag('offerviewlist')
 class TestOfferViewList(TestCase):
