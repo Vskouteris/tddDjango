@@ -1,6 +1,11 @@
 # created by virtualenv automatically
 db.sqlite3
 tddDjango/__pycache__/
-static/
+static/assets/css
+static/assets/fonts
+static/assets/img
+static/assets/scss
+static/assets/js/core
+static/assets/js/plugins
 *.pyc
 *.vscode
