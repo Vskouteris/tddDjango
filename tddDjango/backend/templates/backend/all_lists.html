@@ -7,11 +7,11 @@
 
 	<div class="row">
 		<h2 class="card-title">Νέα Προσφορά</h2>
-		<button type="button" rel="tooltip" title="" class="btn btn-link btn-success" data-original-title="Edit Task">
+		<button type="button" rel="tooltip" title="" class="btn btn-link btn-success" id="new_offer_plus">
 			<i class="tim-icons icon-simple-add"></i>
 		</button>
 	</div>
-	<div class="row">	
+	<div class="row classLists">	
 		<div class="card card-tasks">
 			<div class="card-header ">
 				<h6 class="title d-inline">Όλες οι Προσφορές(6)</h6>
@@ -96,7 +96,7 @@
 
 <!-- lists  of parameters and details	 -->
 
-	<div class="row"style="width: 100%;">
+	<div class="row classLists"style="width: 100%;">
 		<div class="col-lg-6 col-md-12">
 			<div class="card card-tasks">
 			<div class="card-header ">
@@ -264,5 +264,23 @@
 		</div>
 		</div>
 	</div>
+</div>
+<!-- lists  of parameters and details	 -->
+
+	<div class="row d-none" id= "new-offer">
+		<div class="card card-tasks">
+			<div class="card-header ">
+				jkgl;'j'
+			</div>
+			<div class="card-body ">
+				<form method="POST" action="{% url 'offers list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
+					{% csrf_token %}
+					{% render_form formOffer template_pack='rest_framework/horizontal' %}
+					<button type="submit" class="btn btn-info">ADD OFFER</button>				
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	
 {% endblock content %}
