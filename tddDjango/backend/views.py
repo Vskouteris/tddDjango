@@ -18,13 +18,22 @@ def home_page(request):
 	formDetail = DetailSerializer()
 	formParameter = ParameterSerializer()
 	formOffer = OfferSerializer()
-	style = {'template_pack': 'rest_framework/horizontal'}	#you need to send this style dict in your response in order to render_field
 
 	context = {'offers':offers, 'parameters':parameters, 'details':details,
 				"formOffer":formOffer, "formParameter": formParameter, 	"formDetail":formDetail,
-				"style" :style
 	}
 	return render(request, 'backend/all_lists.html',context)
+
+def newOPD(request):
+	formDetail = DetailSerializer()
+	formParameter = ParameterSerializer()
+	formOffer = OfferSerializer()
+	style = {'template_pack': 'rest_framework/horizontal'}	#you need to send this style dict in your response in order to render_field
+
+	context = {"formOffer":formOffer, "formParameter": formParameter, "formDetail":formDetail,
+				"style" :style
+	}
+	return render(request, 'backend/new_OPD.html',context)
 
 
 class OfferViewList(mixins.ListModelMixin,

@@ -183,11 +183,11 @@
 		<div class="col-lg-6 col-md-12">
 			<div class="card card-tasks">
 			<div class="card-header ">
-				<h6 class="title d-inline">Όλες οι Leptomereies(6)</h6>
+				<h6 class="title d-inline">Όλες οι Leptomereies(8)</h6>
 				<p class="card-category d-inline">φίλτρο</p>
 				<form class="d-inline" method="GET" action="{% url 'details list' %}" >	<!-- action="{% url 'details list' %}" and not action="details " BECAUSE this way when path already details/ it doesn't make it localhost/details/details -->
 					<input class="btn-link" type="search" name="search"> 
-					<button class="btn btn-link" type='button'><i class="tim-icons icon-zoom-split" ></i>
+					<button class="btn btn-link" type='submit'><i class="tim-icons icon-zoom-split" ></i>
 						<span class="d-lg-none d-md-block">Search</span>
 					</button>
 				</form>
@@ -266,33 +266,6 @@
 	</div>
 </div>
 <!-- lists  of parameters and details	 -->
-
-	<div class="row d-none" id= "new-offer">
-		<div>
-			<!-- <div class="card-header ">
-				jkgl;'j'
-			</div> -->
-			<div>
-				<form method="POST" action="{% url 'offers list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
-					{% csrf_token %}
-					<!-- {% render_form formOffer template_pack='rest_framework/horizontal' %}	 -->
-					{% render_field formOffer.customer_name style=style %}
-					{% render_field formOffer.description style=style %}
-					{% render_field formOffer.number style=style %}
-					{% render_field formOffer.extra_price style=style %}
-					<div class="row">
-						<div class="col-xs-4">
-							{% render_field formOffer.parameters style=style %}
-						</div>
-						<div class="col-xs-4">
-							<i class="tim-icons icon-simple-add col-xs-4"></i>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-info">ADD OFFER</button>
-				</form>
-			</div>
-		</div>
-	</div>
 	
 	
 {% endblock content %}
