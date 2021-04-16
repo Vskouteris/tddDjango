@@ -50,7 +50,7 @@ class Parameter(models.Model):
         return total    
 
 class Offer(models.Model):
-    parameters= models.ManyToManyField(Parameter,help_text="choose all parameters affecting the offer",blank=True, related_name='offers')
+    parameters= models.ManyToManyField(Parameter,help_text="choose all parameters affecting the offer (with ctr click you can choose more than one)",blank=True, related_name='offers')
     customer_name = models.CharField(max_length=100,null=False,help_text="What is the name of the client?")
     # na mpei kapoia stigmh auto email = models.EmailField()
     description = models.CharField(max_length=500,null=False,help_text="put a description for this offer")

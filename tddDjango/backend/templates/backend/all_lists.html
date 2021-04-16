@@ -268,15 +268,27 @@
 <!-- lists  of parameters and details	 -->
 
 	<div class="row d-none" id= "new-offer">
-		<div class="card card-tasks">
-			<div class="card-header ">
+		<div>
+			<!-- <div class="card-header ">
 				jkgl;'j'
-			</div>
-			<div class="card-body ">
+			</div> -->
+			<div>
 				<form method="POST" action="{% url 'offers list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
 					{% csrf_token %}
-					{% render_form formOffer template_pack='rest_framework/horizontal' %}
-					<button type="submit" class="btn btn-info">ADD OFFER</button>				
+					<!-- {% render_form formOffer template_pack='rest_framework/horizontal' %}	 -->
+					{% render_field formOffer.customer_name style=style %}
+					{% render_field formOffer.description style=style %}
+					{% render_field formOffer.number style=style %}
+					{% render_field formOffer.extra_price style=style %}
+					<div class="row">
+						<div class="col-xs-4">
+							{% render_field formOffer.parameters style=style %}
+						</div>
+						<div class="col-xs-4">
+							<i class="tim-icons icon-simple-add col-xs-4"></i>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-info">ADD OFFER</button>
 				</form>
 			</div>
 		</div>
