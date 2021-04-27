@@ -1,6 +1,7 @@
 {% extends "backend/base.html" %}
 {% block title %} - Προσφορές {% endblock %}
 {% load rest_framework %}
+{% load static %}
 
 
 {% block content %}
@@ -12,7 +13,7 @@
 		</button>
 	</div>
 	<div class="row classLists">	
-		<div class="card card-tasks">
+		<div class="card ">
 			<div class="card-header ">
 				<h6 class="title d-inline">Όλες οι Προσφορές(6)</h6>
 				<p class="card-category d-inline">φίλτρο</p>
@@ -25,40 +26,10 @@
 			</div>
 			<div class="card-body ">
 			<div class="table-full-width table-responsive">
-				<table class="table">
+				<table class="table" id="myTable">
 				<tbody>
-					{% for result in all_search_results %}
-						<tr>
-							<td>
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox" value="">
-										<span class="form-check-sign">
-										<span class="check"></span>
-										</span>
-									</label>
-								</div>
-							</td>
-							<td>
-								{% csrf_token %}
-								<p class="title">{{result.customer_name}}</p>
-								<p class="teresultt-muted">{{result.description}}</p>							
-							</td>
-							<td class="td-actions text-right">
-								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit offer">
-								<i class="tim-icons icon-pencil"></i>
-								</button>
-								<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
-									<i class="tim-icons icon-notes"></i>
-								</button>
-								<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import offer">
-									<i class="tim-icons icon-cloud-upload-94"></i>
-								</button>
-							</td>
-						</tr>
-					{% empty %}
-						{% for x in offers %}
-						<tr>
+					{% for x in offers %}
+						<tr class="firstrow">
 							<td>
 								<div class="form-check">
 									<label class="form-check-label">
@@ -85,8 +56,19 @@
 									<i class="tim-icons icon-cloud-upload-94"></i>
 								</button>
 							</td>
-						</tr>
-						{% endfor %}
+						</tr>	
+						<tr style="display:none;">
+							<td colspan="3">
+								<table class='table'>
+									<tr>
+										<td> It is a 3rd Cell of 2nd row in the 1st Table. </td>  
+										<td> It is a 4th Cell of 2nd row in the 1st Table. </td>
+										<td> It is a 4th Cell of 2nd row in the 1st Table. </td>
+										<td> It is a 4th Cell of 2nd row in the 1st Table. </td>  
+									</tr>
+								</table>
+							</td>
+						</tr>					
 					{% endfor %}
 				</tbody>
 				</table>
@@ -96,176 +78,8 @@
 
 <!-- lists  of parameters and details	 -->
 
-	<div class="row classLists"style="width: 100%;">
-		<div class="col-lg-6 col-md-12">
-			<div class="card card-tasks">
-			<div class="card-header ">
-				<h6 class="title d-inline">Όλες οι Παράμετροι(6)</h6>
-				<p class="card-category d-inline">φίλτρο</p>
-				<form class="d-inline" method="GET" action="{% url 'parameters list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
-					<input class="btn-link" type="search" name="search"> 
-					<button class="btn btn-link" type="submit"><i class="tim-icons icon-zoom-split" ></i>
-						<span class="d-lg-none d-md-block">Search</span>
-					</button>
-				</form>
-			</div>
-			<div class="card-body ">
-			<div class="table-full-width table-responsive">
-				<table class="table">
-				<tbody>
-					{% for result in all_search_results %}
-						<tr>
-							<td>
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox" value="">
-										<span class="form-check-sign">
-										<span class="check"></span>
-										</span>
-									</label>
-								</div>
-							</td>
-							<td>
-								{% csrf_token %}
-								<p class="title">{{result.name}}</p>
-								<p class="teresultt-muted">{{result.description}}</p>							
-							</td>
-							<td class="td-actions text-right">
-								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit parameter">
-								<i class="tim-icons icon-pencil"></i>
-								</button>
-								<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
-									<i class="tim-icons icon-notes"></i>
-								</button>
-								<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import parameter">
-									<i class="tim-icons icon-cloud-upload-94"></i>
-								</button>
-							</td>
-						</tr>
-					{% empty %}
-						{% for x in parameters %}
-						<tr>
-							<td>
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox" value="">
-										<span class="form-check-sign">
-										<span class="check"></span>
-										</span>
-									</label>
-								</div>
-							</td>
-							<td>
-								{% csrf_token %}
-								<p class="title">{{x.name}}</p>
-								<p class="text-muted">{{x.description}}</p>							
-							</td>
-							<td class="td-actions text-right">
-								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit parameter">
-								<i class="tim-icons icon-pencil"></i>
-								</button>
-								<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
-									<i class="tim-icons icon-notes"></i>
-								</button>
-								<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import parameter">
-									<i class="tim-icons icon-cloud-upload-94"></i>
-								</button>
-							</td>
-						</tr>
-						{% endfor %}
-					{% endfor %}
-				</tbody>
-				</table>
-			</div>
-		</div>
-		</div>
-		</div>
-		<div class="col-lg-6 col-md-12">
-			<div class="card card-tasks">
-			<div class="card-header ">
-				<h6 class="title d-inline">Όλες οι Leptomereies(8)</h6>
-				<p class="card-category d-inline">φίλτρο</p>
-				<form class="d-inline" method="GET" action="{% url 'details list' %}" >	<!-- action="{% url 'details list' %}" and not action="details " BECAUSE this way when path already details/ it doesn't make it localhost/details/details -->
-					<input class="btn-link" type="search" name="search"> 
-					<button class="btn btn-link" type='submit'><i class="tim-icons icon-zoom-split" ></i>
-						<span class="d-lg-none d-md-block">Search</span>
-					</button>
-				</form>
-			</div>
-			<div class="card-body ">
-			<div class="table-full-width table-responsive">
-				<table class="table">
-				<tbody>
-					{% for result in all_search_results %}
-						<tr>
-							<td>
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox" value="">
-										<span class="form-check-sign">
-										<span class="check"></span>
-										</span>
-									</label>
-								</div>
-							</td>
-							<td>
-								{% csrf_token %}
-								<p class="title">{{result.name}}</p>
-								<p class="teresultt-muted">{{result.category}}</p>							
-							</td>
-							<td class="td-actions text-right">
-								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit detail">
-								<i class="tim-icons icon-pencil"></i>
-								</button>
-								<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
-									<i class="tim-icons icon-notes"></i>
-								</button>
-								<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import detail">
-									<i class="tim-icons icon-cloud-upload-94"></i>
-								</button>
-							</td>
-						</tr>
-					{% empty %}
-						{% for x in details %}
-						<tr>
-							<td>
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox" value="">
-										<span class="form-check-sign">
-										<span class="check"></span>
-										</span>
-									</label>
-								</div>
-							</td>
-							<td>
-								{% csrf_token %}
-								<p class="title">{{x.name}}</p>
-								<p class="text-muted">{{x.category}}</p>							
-							</td>
-							<td class="td-actions text-right">
-								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit detail">
-								<i class="tim-icons icon-pencil"></i>
-								</button>
-								<button type="button" rel="tooltip" title="expand" class="btn btn-link" data-original-title="Edit Task">
-									<i class="tim-icons icon-notes"></i>
-								</button>
-								<button type="button" rel="tooltip" title="import" class="btn btn-link" data-original-title="import detail">
-									<i class="tim-icons icon-cloud-upload-94"></i>
-								</button>
-							</td>
-						</tr>
-						{% endfor %}
-					{% endfor %}
-				</tbody>
-				</table>
-			</div>
-		</div>
-		</div>
-		</div>
-	</div>
 </div>
-<!-- lists  of parameters and details	 -->
+
 	
-	
+<script src="{% static 'assets/js/all_lists.js' %}"></script>	
 {% endblock content %}

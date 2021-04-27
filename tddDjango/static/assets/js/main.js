@@ -1,4 +1,4 @@
-console.log("linkedddd.....");
+// console.log("main.js linkedddd.....");
 function getToken(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
