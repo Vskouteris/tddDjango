@@ -29,7 +29,7 @@
 				<table class="table" id="myTable">
 				<tbody>
 					{% for x in offers %}
-						<tr class="firstrow">
+						<tr class="firstrow" data-offer={{x.id}}>
 							<td>
 								<div class="form-check">
 									<label class="form-check-label">
@@ -43,7 +43,13 @@
 							<td>
 								{% csrf_token %}
 								<p class="title">{{x.customer_name}}</p>
-								<p class="text-muted">{{x.description}}</p>							
+								<ul class="text-muted">
+									<li>KORRES</li>
+									<li>STAND ΕΔΑΦΟΥΣ</li>
+									<li>[30X40X1.20]</li>  
+									<li>[200 300 600]</li>
+								  </ul>
+								<!-- <p class="text-muted">{{x.description}}</p>							 -->
 							</td>
 							<td class="td-actions text-right">
 								<button type="button" rel="tooltip" title="edit" class="btn btn-link" data-original-title="Edit offer">
@@ -58,13 +64,55 @@
 							</td>
 						</tr>	
 						<tr style="display:none;">
-							<td colspan="3">
+							<td colspan="2">
 								<table class='table'>
 									<tr>
-										<td> It is a 3rd Cell of 2nd row in the 1st Table. </td>  
-										<td> It is a 4th Cell of 2nd row in the 1st Table. </td>
-										<td> It is a 4th Cell of 2nd row in the 1st Table. </td>
-										<td> It is a 4th Cell of 2nd row in the 1st Table. </td>  
+										<th>ΕΡΓΑΣΙΕΣ (4)</th>
+										{% with '200 300 600' as list %}
+											{% for i in list.split %}
+												<th>{{ i }}</th>
+											{% endfor %}
+										{% endwith %}
+									</tr>
+									<tr>
+										<td> ΕΚΤΥΠΩΣΕΙΣ</td>  
+										{% with '23 45 41' as list %}
+											{% for i in list.split %}
+												<td>{{ i }}</td>
+											{% endfor %}
+										{% endwith %}
+									</tr>
+									<tr>
+										<td> ΚΑΛΟΥΠΙ</td>  
+										{% with '47 47 47' as list %}
+											{% for i in list.split %}
+												<td>{{ i }}</td>
+											{% endfor %}
+										{% endwith %}
+									</tr>
+									<tr>
+										<td> ΛΑΜΙΝΑΡΙΣΜΑ</td>
+										{% with '23 45 41' as list %}
+											{% for i in list.split %}
+												<td>{{ i }}</td>
+											{% endfor %}
+										{% endwith %}  
+									</tr>
+									<tr>
+										<td> ΟΝΤΟΥΛΕ 4Φ ΚΚ</td> 
+										{% with '23 45 41' as list %}
+											{% for i in list.split %}
+												<td>{{ i }}</td>
+											{% endfor %}
+										{% endwith %} 
+									</tr>
+									<tr>
+										<td> Σύνολο: </td> 
+										{% with '423 445 741' as list %}
+											{% for i in list.split %}
+												<td>{{ i }}</td>
+											{% endfor %}
+										{% endwith %} 
 									</tr>
 								</table>
 							</td>

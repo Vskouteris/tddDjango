@@ -12540,6 +12540,17 @@ a.text-darker:focus {
 
 .text-muted {
   color: #6c757d !important;
+  list-style-type: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.text-muted li {
+  color: #6c757d !important;
+  display: inline-block;
+  font-size: 20px;
+  padding: 3px;
 }
 
 .text-black-50 {
