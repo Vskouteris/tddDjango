@@ -8,7 +8,6 @@ for (i = 0; i < myTableRows.length; i++) {
             // CHECKING THAT ALL THE OTHER <tr> ARE BEING NOT DISPLAY WHEN I CHOOSE ONE OF THEM
             for(j = 0; j < myTableRows.length; j++){
                 if (this.dataset.offer != myTableRows[j].dataset["offer"]){
-                    // console.log(myTableRows[j].dataset["offer"])
                     myTableRows[j].style.display = 'none';
                 }else{
                     myTableRows[j+1].style.display = 'table-row';
