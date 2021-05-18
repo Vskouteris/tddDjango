@@ -41,12 +41,5 @@ $('#new_offer_plus').on('click',function(event) {
 	// 	});
 
     // }
-    var lists = document.getElementsByClassName('classLists')
-    for (i = 0; i < lists.length; i++) {
-        lists[i].classList.add("d-none")    //hide offers parameters and details
-    }
-    document.getElementById("new-offer").classList.remove("d-none");
-
-     
-    console.log("yeaaaa");
+   
 });
