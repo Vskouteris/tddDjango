@@ -25,22 +25,21 @@
 				</form>
 			</div>
 			<div class="card-body ">
+				<div style="display:none;" id="post-offer-form">
+					<form method="post" action="{% url 'offers list' %}" >
+						{% csrf_token %}
+						<p class="title">{% render_field formOffer.customer_name style=style %}</p>
+						<ul class="text-muted">
+							<li>{% render_field formOffer.description style=style %}</li>
+							<li>{% render_field formOffer.number style=style %}</li>
+							<li>{% render_field formOffer.extra_price style=style %}</li>  
+						</ul>
+						<button type="submit" class="btn btn-info">ADD OFFER</button>
+					</form>							
+				</div>
 			<div class="table-full-width table-responsive">
 				<table class="table" id="myTable">
 				<tbody>
-					<tr>
-						<form class="card-body" method="post" action="{% url 'offers list' %}" >
-							{% csrf_token %}
-							<label for="email">Email:</label>
-							<input type="email" id="email" placeholder="Enter email" name="email">
-							<label for="pwd">Password:</label>
-							<input type="password" id="pwd" placeholder="Enter password" name="pswd">
-							<label>
-								<input type="checkbox" name="remember"> Remember me
-							</label>	
-							<button type="submit" class="btn btn-info">ADD OFFER</button>
-						</form>							
-					</tr>
 					{% for x in offers %}
 					<tr class="firstrow" data-offer={{x.id}}>
 						<td>

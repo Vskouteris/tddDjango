@@ -4,7 +4,7 @@ from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework import mixins
+from rest_framework import mixins,status
 from rest_framework import generics
 
 
@@ -24,13 +24,13 @@ def newOPD(request):
 
 
 class OfferViewList(mixins.ListModelMixin,
-					mixins.CreateModelMixin,
 					generics.GenericAPIView):
 
 	queryset= Offer.objects.all()
 	serializer_class=OfferSerializer
 	renderer_classes = [TemplateHTMLRenderer]
 	template_name='backend/offers_list.html'
+	render_field_style = {'template_pack': 'rest_framework/vertical'}
 	
 	def get(self,request, *args, **kwargs):
 		query = self.request.GET.get('search')
@@ -38,10 +38,18 @@ class OfferViewList(mixins.ListModelMixin,
 			result=Offer.objects.filter(customer_name__contains=query)
 		else:
 			result = Offer.objects.all()
-		return Response({'offers': result,'details': Detail.objects.all(),'parameters':Parameter.objects.all()})
+		return Response({'offers': result,'details': Detail.objects.all(),'parameters':Parameter.objects.all(),
+							"formOffer":self.serializer_class(),"style":self.render_field_style})
 
 	def post(self, request, *args, **kwargs):
-		return self.create(request, *args, **kwargs)
+		formOffer = OfferSerializer(data=request.data)
+		if formOffer.is_valid():
+			formOffer.save()
+		else:
+			# here should pop up a message that the offer is not saved
+			pass 
+		return Response({'offers': Offer.objects.all(),'details': Detail.objects.all(),'parameters':Parameter.objects.all(),
+							"formOffer":self.serializer_class(),"style":self.render_field_style})
 
 class ParameterViewList(mixins.ListModelMixin,
 					mixins.CreateModelMixin,

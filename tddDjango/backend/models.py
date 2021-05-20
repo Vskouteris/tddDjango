@@ -55,7 +55,7 @@ class Offer(models.Model):
     # na mpei kapoia stigmh auto email = models.EmailField()
     description = models.CharField(max_length=500,null=False,help_text="put a description for this offer")
     number = models.IntegerField(null=True,help_text="How many pieces does the customer want")     #number of temaxia
-    extra_price = models.FloatField(default=0)
+    extra_price = models.FloatField(default=0,help_text="added value to the offer")
     slug = models.SlugField(max_length=100,unique=True, blank=True)
 
     def save(self,*args,**kwargs):
