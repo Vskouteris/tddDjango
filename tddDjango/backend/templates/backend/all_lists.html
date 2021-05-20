@@ -28,95 +28,108 @@
 			<div class="table-full-width table-responsive">
 				<table class="table" id="myTable">
 				<tbody>
+					<tr>
+						<form method="post" action="{% url 'offers list' %}" >
+							{% csrf_token %}
+							<p >customer_name : {% render_field formOffer.customer_name style=style %}</p>
+							<ul class="text-muted">
+								<li>description : {% render_field formOffer.description style=style %}</li>
+								<li>Τιμή : {% render_field formOffer.extra_price style=style %}</li>
+								
+								<li>Τεμάχια : {% render_field formOffer.number style=style %}</li>
+							</ul>
+							<button type="submit" class="btn btn-info">ADD OFFER</button>
+						</form>							
+					</tr>
 					{% for x in offers %}
-						<tr class="firstrow" data-offer={{x.id}}>
-							<td>
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox" value="">
-										<span class="form-check-sign">
-										<span class="check"></span>
-										</span>
-									</label>
-								</div>
-							</td>
-							<td>
-								{% csrf_token %}
-								<p class="title">{{x.customer_name}}</p>
-								<ul class="text-muted">
-									<li>KORRES</li>
-									<li>STAND ΕΔΑΦΟΥΣ</li>
-									<li>[30X40X1.20]</li>  
-									<li>[200 300 600]</li>
-								  </ul>
-								<!-- <p class="text-muted">{{x.description}}</p>							 -->
-							</td>
-							<td class="td-actions text-right">
-								<button type="button" rel="tooltip" title="edit {{x.id}}" class="btn btn-link" data-original-title="Edit offer">
-								<i class="tim-icons icon-pencil"></i>
-								</button>
-								<button type="button" rel="tooltip" title="expand {{x.id}}" class="btn btn-link expand-js" data-original-title="Expand offer">
-									<i class="tim-icons icon-notes"></i>
-								</button>
-								<button type="button" rel="tooltip" title="import {{x.id}}" class="btn btn-link" data-original-title="import offer">
-									<i class="tim-icons icon-cloud-upload-94"></i>
-								</button>
-							</td>
-						</tr>	
-						<tr style="display:none;">
-							<td colspan="2">
-								<table class='table'>
-									<tr>
-										<th>ΕΡΓΑΣΙΕΣ (4)</th>
-										{% with '200 300 600' as list %}
-											{% for i in list.split %}
-												<th>{{ i }}</th>
-											{% endfor %}
-										{% endwith %}
-									</tr>
-									<tr>
-										<td> ΕΚΤΥΠΩΣΕΙΣ</td>  
-										{% with '23 45 41' as list %}
-											{% for i in list.split %}
-												<td>{{ i }}</td>
-											{% endfor %}
-										{% endwith %}
-									</tr>
-									<tr>
-										<td> ΚΑΛΟΥΠΙ</td>  
-										{% with '47 47 47' as list %}
-											{% for i in list.split %}
-												<td>{{ i }}</td>
-											{% endfor %}
-										{% endwith %}
-									</tr>
-									<tr>
-										<td> ΛΑΜΙΝΑΡΙΣΜΑ</td>
-										{% with '23 45 41' as list %}
-											{% for i in list.split %}
-												<td>{{ i }}</td>
-											{% endfor %}
-										{% endwith %}  
-									</tr>
-									<tr>
-										<td> ΟΝΤΟΥΛΕ 4Φ ΚΚ</td> 
-										{% with '23 45 41' as list %}
-											{% for i in list.split %}
-												<td>{{ i }}</td>
-											{% endfor %}
-										{% endwith %} 
-									</tr>
-									<tr>
-										<td> Σύνολο: </td> 
-										{% with '423 445 741' as list %}
-											{% for i in list.split %}
-												<td>{{ i }}</td>
-											{% endfor %}
-										{% endwith %} 
-									</tr>
-								</table>
-							</td>
-						</tr>					
+					<tr class="firstrow" data-offer={{x.id}}>
+						<td>
+							<div class="form-check">
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox" value="">
+									<span class="form-check-sign">
+									<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</td>
+						<td>
+							{% csrf_token %}
+							<p class="title">{{x.customer_name}}</p>
+							<ul class="text-muted">
+								<li>KORRES</li>
+								<li>STAND ΕΔΑΦΟΥΣ</li>
+								<li>[30X40X1.20]</li>  
+								<li>[200 300 600]</li>
+							</ul>
+							<!-- <p class="text-muted">{{x.description}}</p>							 -->
+						</td>
+						<td class="td-actions text-right">
+							<button type="button" rel="tooltip" title="edit {{x.id}}" class="btn btn-link" data-original-title="Edit offer">
+							<i class="tim-icons icon-pencil"></i>
+							</button>
+							<button type="button" rel="tooltip" title="expand {{x.id}}" class="btn btn-link expand-js" data-original-title="Expand offer">
+								<i class="tim-icons icon-notes"></i>
+							</button>
+							<button type="button" rel="tooltip" title="import {{x.id}}" class="btn btn-link" data-original-title="import offer">
+								<i class="tim-icons icon-cloud-upload-94"></i>
+							</button>
+						</td>
+					</tr>	
+					<tr style="display:none;">
+						<td colspan="2">
+							<table class='table'>
+								<tr>
+									<th>ΕΡΓΑΣΙΕΣ (4)</th>
+									{% with '200 300 600' as list %}
+										{% for i in list.split %}
+											<th>{{ i }}</th>
+										{% endfor %}
+									{% endwith %}
+								</tr>
+								<tr>
+									<td> ΕΚΤΥΠΩΣΕΙΣ</td>  
+									{% with '23 45 41' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %}
+								</tr>
+								<tr>
+									<td> ΚΑΛΟΥΠΙ</td>  
+									{% with '47 47 47' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %}
+								</tr>
+								<tr>
+									<td> ΛΑΜΙΝΑΡΙΣΜΑ</td>
+									{% with '23 45 41' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %}  
+								</tr>
+								<tr>
+									<td> ΟΝΤΟΥΛΕ 4Φ ΚΚ</td> 
+									{% with '23 45 41' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %} 
+								</tr>
+								<tr>
+									<td> Σύνολο: </td> 
+									{% with '423 445 741' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %} 
+								</tr>
+							</table>
+						</td>
+					</tr>					
 					{% endfor %}
 				</tbody>
 				</table>
