@@ -1,0 +1,144 @@
+{% extends "backend/base.html" %}
+{% block title %} - Προσφορές {% endblock %}
+{% load rest_framework %}
+{% load static %}
+
+
+{% block content %}
+
+	<div class="row">
+		<h2 class="card-title">Νέα Προσφορά</h2>
+		<button type="button" rel="tooltip" title="" class="btn btn-link btn-success" id="new_parameter_plus">
+			<i class="tim-icons icon-simple-add"></i>
+		</button>
+	</div>
+	<div class="row classLists">	
+		<div class="card ">
+			<div class="card-header ">
+				<h6 class="title d-inline">Όλες οι Προσφορές({{ parameters|length }})</h6>
+				<p class="card-category d-inline">φίλτρο</p>
+				<form class="d-inline" method="GET" action="{% url 'parameters list' %}" >	<!-- action="{% url 'parameters list' %}" and not action="parameters " BECAUSE this way when path already parameters/ it doesn't make it localhost/parameters/parameters -->
+					<input class="btn-link" type="search" name="search"> 
+					<button class="btn btn-link" type="submit"><i class="tim-icons icon-zoom-split" ></i>
+						<span class="d-lg-none d-md-block">Search</span>
+					</button>
+				</form>
+			</div>
+			<div class="card-body ">
+			<div class="table-full-width table-responsive">
+				<table class="table" id="myTable">
+				<tbody>
+					<tr>
+						<form class="card-body" method="post" action="{% url 'parameters list' %}" >
+							{% csrf_token %}
+							<label for="email">Email:</label>
+							<input type="email" id="email" placeholder="Enter email" name="email">
+							<label for="pwd">Password:</label>
+							<input type="password" id="pwd" placeholder="Enter password" name="pswd">
+							<label>
+								<input type="checkbox" name="remember"> Remember me
+							</label>	
+							<button type="submit" class="btn btn-info">ADD PARAMETER</button>
+						</form>							
+					</tr>
+					{% for x in parameters %}
+					<tr class="firstrow" data-parameter={{x.id}}>
+						<td>
+							<div class="form-check">
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox" value="">
+									<span class="form-check-sign">
+									<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</td>
+						<td>
+							{% csrf_token %}
+							<p class="title">{{x.customer_name}}</p>
+							<ul class="text-muted">
+								<li>KORRES</li>
+								<li>STAND ΕΔΑΦΟΥΣ</li>
+								<li>[30X40X1.20]</li>  
+								<li>[200 300 600]</li>
+							</ul>
+							<!-- <p class="text-muted">{{x.description}}</p>							 -->
+						</td>
+						<td class="td-actions text-right">
+							<button type="button" rel="tooltip" title="edit {{x.id}}" class="btn btn-link" data-original-title="Edit parameter">
+							<i class="tim-icons icon-pencil"></i>
+							</button>
+							<button type="button" rel="tooltip" title="expand {{x.id}}" class="btn btn-link expand-js" data-original-title="Expand parameter">
+								<i class="tim-icons icon-notes"></i>
+							</button>
+							<button type="button" rel="tooltip" title="import {{x.id}}" class="btn btn-link" data-original-title="import parameter">
+								<i class="tim-icons icon-cloud-upload-94"></i>
+							</button>
+						</td>
+					</tr>	
+					<tr style="display:none;">
+						<td colspan="2">
+							<table class='table'>
+								<tr>
+									<th>ΕΡΓΑΣΙΕΣ (4)</th>
+									{% with '200 300 600' as list %}
+										{% for i in list.split %}
+											<th>{{ i }}</th>
+										{% endfor %}
+									{% endwith %}
+								</tr>
+								<tr>
+									<td> ΕΚΤΥΠΩΣΕΙΣ</td>  
+									{% with '23 45 41' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %}
+								</tr>
+								<tr>
+									<td> ΚΑΛΟΥΠΙ</td>  
+									{% with '47 47 47' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %}
+								</tr>
+								<tr>
+									<td> ΛΑΜΙΝΑΡΙΣΜΑ</td>
+									{% with '23 45 41' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %}  
+								</tr>
+								<tr>
+									<td> ΟΝΤΟΥΛΕ 4Φ ΚΚ</td> 
+									{% with '23 45 41' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %} 
+								</tr>
+								<tr>
+									<td> Σύνολο: </td> 
+									{% with '423 445 741' as list %}
+										{% for i in list.split %}
+											<td>{{ i }}</td>
+										{% endfor %}
+									{% endwith %} 
+								</tr>
+							</table>
+						</td>
+					</tr>					
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>		
+	</div>
+
+</div>
+
+	
+<!-- <script src="{% static 'assets/js/all_lists.js' %}"></script>	 -->
+{% endblock content %}

@@ -1,6 +1,5 @@
 from django.test import SimpleTestCase,TestCase,tag
 from django.urls import reverse,resolve
-from backend.views import home_page
 from backend.models import Offer,Parameter,Detail
 from backend.serializers import OfferSerializer,ParameterSerializer,DetailSerializer
 
@@ -13,7 +12,7 @@ class TestViews(TestCase):      # HOW TO TEST JUST THIS CLASS??? by putting tags
     def test_home_page_renders_correct_html(self):
         response = self.client.get(reverse('home'))
         self.assertEquals(response.status_code,200)
-        self.assertTemplateUsed(response,'backend/all_lists.html')
+        self.assertTemplateUsed(response,'backend/offers_list.html')
 
 @tag('offerviewlist')
 class TestOfferViewList(TestCase):

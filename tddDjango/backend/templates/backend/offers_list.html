@@ -29,15 +29,15 @@
 				<table class="table" id="myTable">
 				<tbody>
 					<tr>
-						<form method="post" action="{% url 'offers list' %}" >
+						<form class="card-body" method="post" action="{% url 'offers list' %}" >
 							{% csrf_token %}
-							<p >customer_name : {% render_field formOffer.customer_name style=style %}</p>
-							<ul class="text-muted">
-								<li>description : {% render_field formOffer.description style=style %}</li>
-								<li>Τιμή : {% render_field formOffer.extra_price style=style %}</li>
-								
-								<li>Τεμάχια : {% render_field formOffer.number style=style %}</li>
-							</ul>
+							<label for="email">Email:</label>
+							<input type="email" id="email" placeholder="Enter email" name="email">
+							<label for="pwd">Password:</label>
+							<input type="password" id="pwd" placeholder="Enter password" name="pswd">
+							<label>
+								<input type="checkbox" name="remember"> Remember me
+							</label>	
 							<button type="submit" class="btn btn-info">ADD OFFER</button>
 						</form>							
 					</tr>

@@ -10,19 +10,6 @@ from rest_framework import generics
 
 
 # Create your views here.
-def home_page(request):
-	offers = Offer.objects.all()
-	parameters = Parameter.objects.all()
-	details = Detail.objects.all()
-
-	formDetail = DetailSerializer()
-	formParameter = ParameterSerializer()
-	formOffer = OfferSerializer()
-
-	context = {'offers':offers, 'parameters':parameters, 'details':details,
-				"formOffer":formOffer, "formParameter": formParameter, 	"formDetail":formDetail,
-	}
-	return render(request, 'backend/all_lists.html',context)
 
 def newOPD(request):
 	formDetail = DetailSerializer()
@@ -43,7 +30,7 @@ class OfferViewList(mixins.ListModelMixin,
 	queryset= Offer.objects.all()
 	serializer_class=OfferSerializer
 	renderer_classes = [TemplateHTMLRenderer]
-	template_name='backend/all_lists.html'
+	template_name='backend/offers_list.html'
 	
 	def get(self,request, *args, **kwargs):
 		query = self.request.GET.get('search')
@@ -63,7 +50,7 @@ class ParameterViewList(mixins.ListModelMixin,
 	queryset= Parameter.objects.all()
 	serializer_class=ParameterSerializer
 	renderer_classes = [TemplateHTMLRenderer]
-	template_name='backend/all_lists.html'
+	template_name='backend/parameters_list.html'
 
 	def get(self,request, *args, **kwargs):
 		query = self.request.GET.get('search')
@@ -83,7 +70,7 @@ class DetailViewList(mixins.ListModelMixin,
 	queryset= Detail.objects.all()
 	serializer_class=DetailSerializer
 	renderer_classes = [TemplateHTMLRenderer]
-	template_name='backend/all_lists.html'
+	template_name='backend/details_list.html'
 
 	def get(self,request, *args, **kwargs):
 		query = self.request.GET.get('search')

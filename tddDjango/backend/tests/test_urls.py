@@ -6,7 +6,7 @@ class TestUrls(SimpleTestCase):
     
     def test_home_url_is_resolved(self):
         url = reverse('home')
-        self.assertEquals(resolve(url).func,home_page)
+        self.assertEquals(resolve(url).func.view_class,OfferViewList)
 
     def test_list_of_offers_is_resolved(self):
         url = reverse('offers list')
