@@ -16,11 +16,25 @@ for (i = 0; i < expandButtons.length; i++) {
         }
     })
 }
+// By clicking edit button open the respective html for updating an offer
+editButtons = document.getElementsByClassName("edit-js");
+// console.log(editButtons)
+for (i = 0; i < editButtons.length; i++) {
+    editButtons[i].addEventListener('click', function(){
+        for(j = 0; j < myTableRows.length; j++){
+            if (myTableRows[j].dataset["offer"] == this.title.split(' ')[1]){
+                console.log('edit button pushed',myTableRows[j].dataset["offer"])
+                
+            }
+        }
+    })
+}
 
 // creating a new offer by sales
  newOfferSign = document.getElementById("new_offer_plus");
  newOfferSign.addEventListener('click', function(){
-    console.log('plus button pusheddddd')
+    console.log('plus button pusheddddd');
+    document.getElementById("post-offer-form").style.display = "";
  })
 
 
