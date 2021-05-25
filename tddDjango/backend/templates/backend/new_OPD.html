@@ -1,17 +1,50 @@
 {% extends "backend/base.html" %}
 {% block title %} - Προσφορές {% endblock %}
 {% load rest_framework %}
+{% load static %}
 
 
 {% block content %}
 
 	<div class="row">
-		<h2 class="card-title">Νέα Προσφορά</h2>
+		<h2 class="card-title">Νέα Γραμμή Εργασίας</h2>
+		<button type="button" rel="tooltip" title="" class="btn btn-link btn-success" id="new_line">
+			<i class="tim-icons icon-simple-add"></i>
+		</button>
 	</div>
-	<div class="row card" id= "new-offer">
-		<p class="title">{{offer.customer_name}}</p>
-		<p class="title">{{offer.customer_name}}</p>
-		<p class="title">{{offer.customer_name}}</p>
+	<div class="row classLists">	
+		<div class="card ">
+			<div class="card-header ">
+				<h6 class="title d-inline">KORRES stand εδαφους</h6>
+				<p class="card-category d-inline">[30X40X1.20] [200 300 600]</p>	
+			</div>
+			<div class="card-body ">
+				<div class="table-full-width table-responsive">
+					<form method="PUT" action="{% url 'offers list' %}" >
+						<table class="table" id="ergasies">
+							<tbody>
+								<tr>
+									<th>ΕΡΓΑΣΙΕΣ (4)</th>
+									{% with '200 300 600' as list %}
+										{% for i in list.split %}
+											<th>{{ i }}</th>
+										{% endfor %}
+									{% endwith %}
+								</tr>
+								<!-- here i should show in some <tr></tr> the parameters(or ergasies) that are already created for the offer  -->
+							</tbody>
+						</table>
+						<button type="submit" class="btn btn-info">ADD OFFER</button>
+					</form>
+				</div>
+			</div>
+		</div>		
 	</div>
+
+<!-- lists  of parameters and details	 -->
+
+</div>
+
 	
+<script src="{% static 'assets/js/one_offer.js' %}"></script>	
 {% endblock content %}

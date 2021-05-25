@@ -1,4 +1,3 @@
-
 // Hiding and showing ergasies of one offer by clicking the expand button
 var myTableRows = document.getElementById("myTable").rows;
 expandButtons = document.getElementsByClassName("expand-js");
