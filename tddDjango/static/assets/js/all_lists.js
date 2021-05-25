@@ -23,8 +23,8 @@ for (i = 0; i < editButtons.length; i++) {
     editButtons[i].addEventListener('click', function(){
         for(j = 0; j < myTableRows.length; j++){
             if (myTableRows[j].dataset["offer"] == this.title.split(' ')[1]){
-                console.log('edit button pushed',myTableRows[j].dataset["offer"])
-                
+                console.log('/offers/' + this.title.split(' ')[1])
+                window.location = '/offers/' + this.title.split(' ')[1];
             }
         }
     })

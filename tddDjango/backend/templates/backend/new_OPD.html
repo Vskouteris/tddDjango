@@ -9,60 +9,9 @@
 		<h2 class="card-title">Νέα Προσφορά</h2>
 	</div>
 	<div class="row card" id= "new-offer">
-		<div>
-			<!-- <div class="card-header ">
-				jkgl;'j'
-			</div> -->
-			<div>
-				<form method="POST" action="{% url 'offers list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
-					{% csrf_token %}
-					<!-- {% render_form formOffer template_pack='rest_framework/horizontal' %}	 -->
-					{% render_field formOffer.customer_name style=style %}
-					{% render_field formOffer.description style=style %}
-					{% render_field formOffer.number style=style %}
-					{% render_field formOffer.extra_price style=style %}
-					{% render_field formOffer.parameters style=style %}
-					<button type="submit" class="btn btn-info">ADD OFFER</button>
-				</form>
-			</div>
-		</div>
-	</div>
-<!-- Add a new parameter THIS BLOCK IS NOT YET READY -->
-	<div class="row">
-		<h2 class="card-title">Νέα Παράμετρος</h2>
-	</div>
-	<div class="row card" id= "new-parameter">
-		<div>
-			<div>
-				<form method="POST" action="{% url 'parameters list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
-					{% csrf_token %}
-					{% render_field formParameter.name style=style %}
-					{% render_field formParameter.description style=style %}
-					{% render_field formParameter.extra_price style=style %}
-					{% render_field formParameter.details style=style %}
-					<button type="submit" class="btn btn-info">ADD PARAMETER</button>
-				</form>
-			</div>
-		</div>
-	</div>
-<!-- Add a new detail THIS BLOCK IS NOT YET READY -->
-	<div class="row">
-		<h2 class="card-title">Νέα Λεπτομέρεια</h2>
-	</div>
-	<div class="row card" id= "new-detail">
-		<div>
-			<div>
-				<form method="POST" action="{% url 'details list' %}" >	<!-- action="{% url 'offers list' %}" and not action="offers " BECAUSE this way when path already offers/ it doesn't make it localhost/offers/offers -->
-					{% csrf_token %}
-					<!-- Attention : here if i reference formDetail.nonexistent i get an error 'str' object has no attribute '_field' -->
-					{% render_field formDetail.name style=style %}
-					{% render_field formDetail.category style=style %}
-					{% render_field formDetail.price style=style %}
-					{% render_field formDetail.extra_price style=style %}
-					<button type="submit" class="btn btn-info">ADD Detail</button>
-				</form>
-			</div>
-		</div>
+		<p class="title">{{offer.customer_name}}</p>
+		<p class="title">{{offer.customer_name}}</p>
+		<p class="title">{{offer.customer_name}}</p>
 	</div>
 	
 {% endblock content %}

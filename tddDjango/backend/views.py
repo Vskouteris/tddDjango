@@ -95,6 +95,13 @@ class DetailViewList(mixins.ListModelMixin,
 class OfferRUD(generics.RetrieveUpdateDestroyAPIView):
 	queryset=Offer.objects.all()
 	serializer_class= OfferSerializer
+	renderer_classes = [TemplateHTMLRenderer]
+	template_name='backend/new_OPD.html'
+
+	def retrieve(self, request, *args, **kwargs):
+		instance = self.get_object()
+		serializer = self.get_serializer(instance)
+		return Response({"offer":serializer.data,"formOffer":self.serializer_class()})
 
 #Parameter get update delete
 class ParameterRUD(generics.RetrieveUpdateDestroyAPIView):

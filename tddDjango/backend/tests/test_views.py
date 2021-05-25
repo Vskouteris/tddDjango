@@ -91,14 +91,19 @@ class TestOfferRUD(TestCase):
         Offer.objects.create(customer_name='test offer',extra_price=0,description='testing yo man',number=250)
         Offer.objects.first().parameters.add(par1,par2)
 
+    def test_offer_is_saved(self):
+        self.assertEquals(len(Offer.objects.all()),1)
+
     def test_get_correct_offer(self):
-        offer = Offer.objects.first()   
-        self.assertEquals(self.client.get(f'/offers/{offer.pk}/').json()['description'],'testing yo man')
+        offer = Offer.objects.first()
+        response_offer = self.client.get(f'/offers/{offer.pk}/').context["offer"]
+        self.assertEquals(response_offer['description'],'testing yo man')
  
     def test_get_correct_parameters_for_this_offer(self):
         offer = Offer.objects.first()
+        response_offer = self.client.get(f'/offers/{offer.pk}/').context["offer"]
 
-        offer_parameters =self.client.get(f'/offers/{offer.pk}/').json()['parameters']
+        offer_parameters =response_offer['parameters']
         offer_parameters = list(map(int, offer_parameters))
         
         self.assertEquals(Parameter.objects.filter(id__in=offer_parameters).count(),2)
@@ -107,7 +112,9 @@ class TestOfferRUD(TestCase):
         offer = Offer.objects.first()
 
         response = self.client.put(f'/offers/{offer.pk}/',data={'description':'UPDATE YO MAN','customer_name':offer.customer_name},content_type='application/json')
-        self.assertEquals(response.json()['description'],'UPDATE YO MAN')
+        response_description = response.context["description"]
+
+        self.assertEquals(response_description,'UPDATE YO MAN')
         
     def test_delete_this_offer(self):
         offer = Offer.objects.first()
@@ -123,6 +130,9 @@ class TestParameterRUD(TestCase):
         det2 =Detail.objects.create(name='test detail2',extra_price=0)
         Parameter.objects.create(name='test parameter',extra_price=0,description='parameter created for testing')
         Parameter.objects.first().details.add(det1,det2)
+
+    def test_parameter_is_saved(self):
+        self.assertEquals(len(Parameter.objects.all()),1)
 
     def test_get_correct_parameter(self):
         parameter = Parameter.objects.first()   
@@ -151,6 +161,9 @@ class TestParameterRUD(TestCase):
 class TestDetailRUD(TestCase):
     def setUp(self):       
         Detail.objects.create(name='test detail1',category='HOURS',price=0,extra_price=0)
+
+    def test_detail_is_saved(self):
+        self.assertEquals(len(Detail.objects.all()),1)
 
     def test_get_correct_detail(self):
         Detail.objects.create(name='test detail2',category='DIMENSIONS',price=1,extra_price=0.1)
